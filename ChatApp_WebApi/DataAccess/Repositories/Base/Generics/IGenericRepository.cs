@@ -1,6 +1,5 @@
 using DataAccess.Core.Entities.Base;
-using DataAccess.Specifications.Base.Generics;
-using DataAccess.UnitOfWorks.Implementations;
+using DataAccess.Specifications.Entities.Base.Generics;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace DataAccess.Repositories.Base.Generics;

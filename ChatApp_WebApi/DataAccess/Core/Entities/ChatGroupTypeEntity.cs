@@ -7,5 +7,12 @@ public class ChatGroupTypeEntity : GuidEntity
     public string Name { get; set; }
 
     // Navigation Properties
-    public IList<ChatGroupEntity> ChatGroups { get; set; }
+    public IEnumerable<ChatGroupEntity> ChatGroups { get; set; }
+
+    #region MetaData
+    public static class MetaData
+    {
+        public const string TableName = "ChatGroupTypes";
+    }
+    #endregion
 }

@@ -1,5 +1,5 @@
 ﻿using BusinessLogic.Services.Entities.Base;
-using BusinessLogic.Services.Entities.Implementations;
+using BusinessLogic.Services.Entities.Implementation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BusinessLogic

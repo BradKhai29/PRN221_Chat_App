@@ -1,4 +1,6 @@
 ﻿using DataAccess.Core;
+using DataAccess.Repositories.Base;
+using DataAccess.Repositories.Implementation;
 using DataAccess.UnitOfWorks.Base;
 using DataAccess.UnitOfWorks.Implementations;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +18,8 @@ public static class DependencyInjection
     /// </returns>
     public static IServiceCollection AddDataAccess(this IServiceCollection services)
     {
-        services.AddScoped<IUnitOfWork<ChatAppDbContext>, ChatAppUnitOfWork>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IUnitOfWork<ChatAppDbContext>, ChatAppUnitOfWork<ChatAppDbContext>>();
 
         return services;
     }

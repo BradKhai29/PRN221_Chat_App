@@ -1,6 +1,5 @@
-using DataAccess.Core;
 using DataAccess.Core.Entities.Base;
-using DataAccess.Specifications.Base.Generics;
+using DataAccess.Specifications.Entities.Base.Generics;
 using DataAccess.Specifications.Evaluator;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -11,12 +10,10 @@ public abstract class GenericRepository<TEntity>
     : IGenericRepository<TEntity>
     where TEntity : class, IBaseEntity
 {
-    private readonly ChatAppDbContext _dbContext;
     private readonly DbSet<TEntity> _dbSet;
 
-    protected GenericRepository(ChatAppDbContext dbContext)
+    protected GenericRepository(DbContext dbContext)
     {
-        _dbContext = dbContext;
         _dbSet = dbContext.Set<TEntity>();
     }
 

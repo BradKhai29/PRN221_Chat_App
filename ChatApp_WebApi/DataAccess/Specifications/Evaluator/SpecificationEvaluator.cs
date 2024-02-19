@@ -1,5 +1,5 @@
 using DataAccess.Core.Entities.Base;
-using DataAccess.Specifications.Base.Generics;
+using DataAccess.Specifications.Entities.Base.Generics;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Specifications.Evaluator;

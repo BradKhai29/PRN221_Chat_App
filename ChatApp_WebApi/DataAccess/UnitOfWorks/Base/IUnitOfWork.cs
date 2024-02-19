@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Storage;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace DataAccess.UnitOfWorks.Base;
 
@@ -8,11 +9,11 @@ namespace DataAccess.UnitOfWorks.Base;
 /// <typeparam name="TContext">
 ///     The context class that used to work with the database.
 /// </typeparam>
-public interface IUnitOfWork<TContext> : ITransactionHandler
-    where TContext : class
+public interface IUnitOfWork<TContext> :
+    IUnitOfWorkRepositoryProvider,
+    ITransactionHandler
+    where TContext : DbContext
 {
-    TContext DbContext { get; }
-
     IExecutionStrategy CreateExecutionStrategy();
 
     Task SaveChangesToDatabaseAsync(CancellationToken cancellationToken);

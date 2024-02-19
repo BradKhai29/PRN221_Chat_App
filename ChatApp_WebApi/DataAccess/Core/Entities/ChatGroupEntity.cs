@@ -21,9 +21,18 @@ public class ChatGroupEntity :
     // Navigation Properties
     public ChatGroupTypeEntity ChatGroupType { get; set; }
 
-    public IList<ChatMessageEntity> ChatMessages { get; set; }
+    public UserEntity Creator { get; set; }
 
-    public IList<UserRecentChatGroupEntity> UserRecentChatGroups { get; set; }
+    public IEnumerable<ChatMessageEntity> ChatMessages { get; set; }
 
-    public IList<ChatGroupMemberEntity> ChatGroupMembers { get; set; }
+    public IEnumerable<UserRecentChatGroupEntity> UserRecentChatGroups { get; set; }
+
+    public IEnumerable<ChatGroupMemberEntity> ChatGroupMembers { get; set; }
+
+    #region MetaData
+    public static class MetaData
+    {
+        public const string TableName = "ChatGroups";
+    }
+    #endregion
 }

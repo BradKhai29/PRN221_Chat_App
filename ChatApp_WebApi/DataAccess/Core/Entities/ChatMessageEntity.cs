@@ -29,4 +29,13 @@ public class ChatMessageEntity :
     public ChatMessageEntity ReplyMessage { get; set; }
 
     public UserEntity Sender { get; set; }
+
+    public UserEntity Updater { get; set; }
+
+    #region MetaData
+    public static class MetaData
+    {
+        public const string TableName = "ChatMessages";
+    }
+    #endregion
 }
