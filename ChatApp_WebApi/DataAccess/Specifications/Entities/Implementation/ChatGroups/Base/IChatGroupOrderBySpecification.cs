@@ -6,8 +6,22 @@ namespace DataAccess.Specifications.Entities.Implementation.ChatGroups.Base
     public interface IChatGroupOrderBySpecification 
         : IGenericSpecification<ChatGroupEntity>
     {
-        IChatGroupOrderBySpecification ByCreatedAt();
+        /// <summary>
+        ///     Order the list by the datetime when this chat-group was created.
+        /// </summary>
+        /// <param name="isAscending">
+        ///     Default is true.
+        /// </param>
+        /// <returns></returns>
+        IChatGroupOrderBySpecification ByCreatedAt(bool isAscending);
 
-        IChatGroupOrderBySpecification ByCreatedBy();
+        /// <summary>
+        ///     Order the list by the creatorId.
+        /// </summary>
+        /// <param name="isAscending">
+        ///     Default is true.
+        /// </param>
+        /// <returns></returns>
+        IChatGroupOrderBySpecification ByCreatedBy(bool isAscending);
     }
 }

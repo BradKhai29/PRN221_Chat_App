@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Core\Entities\Base\" />
     <Folder Include="Repositories\Implementation\" />
-    <Folder Include="Specifications\Managers\Implementation\" />
   </ItemGroup>
 
   <ItemGroup>
