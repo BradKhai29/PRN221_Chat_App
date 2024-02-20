@@ -2,7 +2,7 @@
 
 namespace DataAccess.Commons.DataSeedings
 {
-    public static class DataSeedingValues
+    public static class SeedingValues
     {
         // Roles section
         public static class Roles

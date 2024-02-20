@@ -3,13 +3,13 @@ using DataAccess.Specifications.Entities.Base.Generics;
 
 namespace DataAccess.Specifications.Entities.Implementation.ChatMessages.Base
 {
-    public interface IChatMessageOrderBySpecification :
+    public interface IChatMessageSelectSpecification : 
         IGenericSpecification<ChatMessageEntity>
     {
         /// <summary>
-        ///     Order the list by the datetime when the 
-        ///     chat-message was created descendingly.
+        ///     This specification is used to select required 
+        ///     properties/fields that need to display in a list.
         /// </summary>
-        IChatMessageOrderBySpecification ByCreatedAtDescendingly();
+        IChatMessageSelectSpecification ForListDisplay();
     }
 }

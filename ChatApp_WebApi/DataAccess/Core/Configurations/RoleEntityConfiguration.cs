@@ -15,7 +15,7 @@ namespace DataAccess.Core.Configurations
 
             builder
                 .Property(role => role.CreatedAt)
-                .HasColumnType(SqlDataTypes.DATETIME)
+                .HasColumnType(SqlDataTypes.SqlServer.DATETIME)
                 .IsRequired();
 
             builder

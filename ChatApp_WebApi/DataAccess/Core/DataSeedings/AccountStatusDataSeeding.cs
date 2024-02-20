@@ -20,18 +20,18 @@ namespace DataAccess.Core.DataSeedings
             {
                 new()
                 {
-                    Id = DataSeedingValues.AccountStatuses.Pending.Id,
-                    Name = DataSeedingValues.AccountStatuses.Pending.Name
+                    Id = SeedingValues.AccountStatuses.Pending.Id,
+                    Name = SeedingValues.AccountStatuses.Pending.Name
                 },
                 new()
                 {
-                    Id = DataSeedingValues.AccountStatuses.Registered.Id,
-                    Name = DataSeedingValues.AccountStatuses.Registered.Name
+                    Id = SeedingValues.AccountStatuses.Registered.Id,
+                    Name = SeedingValues.AccountStatuses.Registered.Name
                 },
                 new()
                 {
-                    Id = DataSeedingValues.AccountStatuses.Banned.Id,
-                    Name = DataSeedingValues.AccountStatuses.Banned.Name
+                    Id = SeedingValues.AccountStatuses.Banned.Id,
+                    Name = SeedingValues.AccountStatuses.Banned.Name
                 }
             };
 

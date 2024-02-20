@@ -17,12 +17,12 @@ public class ChatMessageEntityConfiguration : IEntityConfiguration<ChatMessageEn
         // Properties Configuration.
         builder
             .Property(chatMessage => chatMessage.Content)
-            .HasColumnType(SqlDataTypes.NVARCHAR_MAX)
+            .HasColumnType(SqlDataTypes.SqlServer.NVARCHAR_MAX)
             .IsRequired();
 
         builder
             .Property(chatMessage => chatMessage.Images)
-            .HasColumnType(SqlDataTypes.NVARCHAR_2000)
+            .HasColumnType(SqlDataTypes.SqlServer.NVARCHAR_2000)
             .IsRequired();
 
         builder
@@ -35,7 +35,7 @@ public class ChatMessageEntityConfiguration : IEntityConfiguration<ChatMessageEn
 
         builder
             .Property(chatMessage => chatMessage.CreatedAt)
-            .HasColumnType(SqlDataTypes.DATETIME)
+            .HasColumnType(SqlDataTypes.SqlServer.DATETIME)
             .IsRequired();
 
         builder
@@ -44,11 +44,7 @@ public class ChatMessageEntityConfiguration : IEntityConfiguration<ChatMessageEn
 
         builder
             .Property(chatMessage => chatMessage.UpdatedAt)
-            .HasColumnType(SqlDataTypes.DATETIME)
-            .IsRequired();
-
-        builder
-            .Property(chatMessage => chatMessage.UpdatedBy)
+            .HasColumnType(SqlDataTypes.SqlServer.DATETIME)
             .IsRequired();
 
         // Relationships Configuration.

@@ -17,18 +17,18 @@ namespace DataAccess.Core.Configurations
             // Properties Configuration.
             builder
                 .Property(user => user.AvatarUrl)
-                .HasColumnType(SqlDataTypes.NVARCHAR_200)
+                .HasColumnType(SqlDataTypes.SqlServer.NVARCHAR_200)
                 .HasDefaultValue(DefaultValues.UserAvatarUrl)
                 .IsRequired();
 
             builder
                 .Property(user => user.CreatedAt)
-                .HasColumnType(SqlDataTypes.DATETIME)
+                .HasColumnType(SqlDataTypes.SqlServer.DATETIME)
                 .IsRequired();
 
             builder
                 .Property(user => user.UpdatedAt)
-                .HasColumnType(SqlDataTypes.DATETIME)
+                .HasColumnType(SqlDataTypes.SqlServer.DATETIME)
                 .IsRequired();
 
             builder
@@ -38,7 +38,7 @@ namespace DataAccess.Core.Configurations
 
             builder
                 .Property(user => user.RemovedAt)
-                .HasColumnType(SqlDataTypes.DATETIME)
+                .HasColumnType(SqlDataTypes.SqlServer.DATETIME)
                 .IsRequired();
 
             builder

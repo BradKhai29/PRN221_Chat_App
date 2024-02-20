@@ -20,27 +20,27 @@ namespace DataAccess.Core.DataSeedings
             {
                 new()
                 {
-                    Id = DataSeedingValues.Roles.System.Id,
-                    Name = DataSeedingValues.Roles.System.Name,
-                    NormalizedName = DataSeedingValues.Roles.System.Name.ToUpper()
+                    Id = SeedingValues.Roles.System.Id,
+                    Name = SeedingValues.Roles.System.Name,
+                    NormalizedName = SeedingValues.Roles.System.Name.ToUpper()
                 },
                 new()
                 {
-                    Id = DataSeedingValues.Roles.User.Id,
-                    Name = DataSeedingValues.Roles.User.Name,
-                    NormalizedName = DataSeedingValues.Roles.User.Name.ToUpper()
+                    Id = SeedingValues.Roles.User.Id,
+                    Name = SeedingValues.Roles.User.Name,
+                    NormalizedName = SeedingValues.Roles.User.Name.ToUpper()
                 },
                 new()
                 {
-                    Id = DataSeedingValues.Roles.ChatGroupMember.Id,
-                    Name = DataSeedingValues.Roles.ChatGroupMember.Name,
-                    NormalizedName = DataSeedingValues.Roles.ChatGroupMember.Name.ToUpper()
+                    Id = SeedingValues.Roles.ChatGroupMember.Id,
+                    Name = SeedingValues.Roles.ChatGroupMember.Name,
+                    NormalizedName = SeedingValues.Roles.ChatGroupMember.Name.ToUpper()
                 },
                 new()
                 {
-                    Id = DataSeedingValues.Roles.ChatGroupManager.Id,
-                    Name = DataSeedingValues.Roles.ChatGroupManager.Name,
-                    NormalizedName = DataSeedingValues.Roles.ChatGroupManager.Name.ToUpper()
+                    Id = SeedingValues.Roles.ChatGroupManager.Id,
+                    Name = SeedingValues.Roles.ChatGroupManager.Name,
+                    NormalizedName = SeedingValues.Roles.ChatGroupManager.Name.ToUpper()
                 }
             };
 

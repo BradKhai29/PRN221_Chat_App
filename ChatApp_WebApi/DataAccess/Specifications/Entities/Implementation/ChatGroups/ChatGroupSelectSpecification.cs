@@ -14,27 +14,9 @@ namespace DataAccess.Specifications.Entities.Implementation.ChatGroups
             {
                 Id = chatGroup.Id,
                 Name = chatGroup.Name,
-                IsPrivate = chatGroup.IsPrivate,
-                ChatGroupTypeId = chatGroup.ChatGroupTypeId,
                 CreatedAt = chatGroup.CreatedAt,
                 CreatedBy = chatGroup.CreatedBy,
-                MemberCount = chatGroup.MemberCount,
-                Creator = new UserEntity
-                {
-                    Id = chatGroup.CreatedBy,
-                    UserName = chatGroup.Creator.UserName
-                },
-                ChatGroupMembers = chatGroup.ChatGroupMembers
-                    .Select(groupMember => new ChatGroupMemberEntity
-                    {
-                        MemberId = groupMember.MemberId,
-                        ChatGroupId = groupMember.ChatGroupId,
-                        Member = new UserEntity
-                        {
-                            Id = groupMember.MemberId,
-                            UserName = groupMember.Member.UserName
-                        }
-                    })
+                MemberCount = chatGroup.MemberCount
             };
 
             return this;

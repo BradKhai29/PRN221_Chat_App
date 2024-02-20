@@ -20,18 +20,18 @@ internal class ChatGroupTypeDataSeeding : EntityDataSeeding<ChatGroupTypeEntity>
         {
             new()
             {
-                Id = DataSeedingValues.ChatGroupTypes.OnlyMe.Id,
-                Name = DataSeedingValues.ChatGroupTypes.OnlyMe.Name
+                Id = SeedingValues.ChatGroupTypes.OnlyMe.Id,
+                Name = SeedingValues.ChatGroupTypes.OnlyMe.Name
             },
             new()
             {
-                Id = DataSeedingValues.ChatGroupTypes.WithFriend.Id,
-                Name = DataSeedingValues.ChatGroupTypes.WithFriend.Name
+                Id = SeedingValues.ChatGroupTypes.WithFriend.Id,
+                Name = SeedingValues.ChatGroupTypes.WithFriend.Name
             },
             new()
             {
-                Id = DataSeedingValues.ChatGroupTypes.WithGroup.Id,
-                Name = DataSeedingValues.ChatGroupTypes.WithGroup.Name
+                Id = SeedingValues.ChatGroupTypes.WithGroup.Id,
+                Name = SeedingValues.ChatGroupTypes.WithGroup.Name
             }
         };
 
