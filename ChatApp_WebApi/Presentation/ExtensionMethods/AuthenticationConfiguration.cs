@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Presentation.Models.Options;
 using Presentation.OptionsSetup;
 
 namespace Presentation.ExtensionMethods
@@ -9,8 +10,7 @@ namespace Presentation.ExtensionMethods
             this IServiceCollection services,
             ConfigurationManager configurationManager)
         {
-            services.ConfigureOptions<JwtOptionsSetup>();
-            services.ConfigureOptions<JwtBearerOptionsSetup>();
+            var _jwtOptions = JwtOptions.Bind(configurationManager);
 
             services
                 .AddAuthentication(options =>
@@ -19,7 +19,19 @@ namespace Presentation.ExtensionMethods
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
-                .AddJwtBearer();
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new()
+                    {
+                        ValidateAudience = true,
+                        ValidateIssuer = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = _jwtOptions.Issuer,
+                        ValidAudience = _jwtOptions.Audience,
+                        IssuerSigningKey = _jwtOptions.GetSecurityKey()
+                    };
+                });
 
             return services;
         }

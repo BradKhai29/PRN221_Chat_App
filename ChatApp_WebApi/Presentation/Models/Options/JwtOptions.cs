@@ -1,4 +1,7 @@
-﻿namespace Presentation.Models.Options
+﻿using Helpers;
+using Microsoft.IdentityModel.Tokens;
+
+namespace Presentation.Models.Options
 {
     public sealed class JwtOptions
     {
@@ -10,5 +13,39 @@
         public string Audience { get; set; }
 
         public string PrivateKey { get; set; }
+
+        /// <summary>
+        ///     The number of days this token will live in short term.
+        /// </summary>
+        public int DefaultShortLiveDays { get; set; }
+
+        /// <summary>
+        ///     The number of days this token will live in long term.
+        /// </summary>
+        public int DefaultLongLiveDays { get; set; }
+
+        public byte[] GetKey()
+        {
+            return JwtTokenHelper.Encrypt(key: PrivateKey);
+        }
+
+        public SymmetricSecurityKey GetSecurityKey()
+        {
+            var encryptedKey = GetKey();
+
+            return new SymmetricSecurityKey(key: encryptedKey);
+        }
+
+        public static JwtOptions Bind(ConfigurationManager configurationManager)
+        {
+            var jwtOptions = new JwtOptions();
+
+            configurationManager
+                .GetRequiredSection(ParentSectionName)
+                .GetRequiredSection(SectionName)
+                .Bind(jwtOptions);
+
+            return jwtOptions;
+        }
     }
 }
