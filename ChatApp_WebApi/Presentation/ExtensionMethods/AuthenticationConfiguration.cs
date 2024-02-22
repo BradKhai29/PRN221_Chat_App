@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Presentation.Models.Options;
-using Presentation.OptionsSetup;
+using Microsoft.IdentityModel.Tokens;
+using Options.Models;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Presentation.ExtensionMethods
 {
@@ -10,7 +11,14 @@ namespace Presentation.ExtensionMethods
             this IServiceCollection services,
             ConfigurationManager configurationManager)
         {
-            var _jwtOptions = JwtOptions.Bind(configurationManager);
+            var _jwtOptions = new JwtOptions();
+
+            configurationManager
+                .GetRequiredSection(JwtOptions.ParentSectionName)
+                .GetRequiredSection(JwtOptions.SectionName)
+                .Bind(_jwtOptions);
+
+            services.AddScoped<SecurityTokenHandler, JwtSecurityTokenHandler>();
 
             services
                 .AddAuthentication(options =>

@@ -12,9 +12,7 @@ public class RoleEntity :
 
     public Guid CreatedBy { get; set; }
 
-    // Navigation Properties
-    public UserEntity Creator { get; set; }
-
+    // Navigation Properties.
     public IEnumerable<ChatGroupMemberEntity> ChatGroupMembers { get; set; }
 
     #region MetaData

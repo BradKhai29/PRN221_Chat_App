@@ -10,16 +10,16 @@ namespace DataAccess.Specifications.Entities.Implementation.RefreshTokens
         GenericSpecification<RefreshTokenEntity>,
         IRefreshTokenWhereSpecification
     {
-        public IRefreshTokenWhereSpecification IsCorrectValueAndAccessTokenId(
-            string value,
-            Guid accessTokenId)
+        public IRefreshTokenWhereSpecification ForVerification(
+            RefreshTokenEntity refreshToken)
         {
-            Criteria = token => 
+            Criteria = token =>
                 EF.Functions.Collate(
                     token.Value,
                     SqlCollations.SqlServer.SQL_LATIN1_GENERAL_CP1_CS_AS)
-                .Equals(value) 
-                && token.AccessTokenId == accessTokenId;
+                .Equals(refreshToken.Value)
+                && token.AccessTokenId.Equals(refreshToken.AccessTokenId)
+                && token.UserId.Equals(refreshToken.UserId);
 
             return this;
         }

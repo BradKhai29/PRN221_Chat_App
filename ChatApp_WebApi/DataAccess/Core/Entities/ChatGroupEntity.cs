@@ -25,8 +25,6 @@ public class ChatGroupEntity :
 
     public IEnumerable<ChatMessageEntity> ChatMessages { get; set; }
 
-    public IEnumerable<UserRecentChatGroupEntity> UserRecentChatGroups { get; set; }
-
     public IEnumerable<ChatGroupMemberEntity> ChatGroupMembers { get; set; }
 
     #region MetaData

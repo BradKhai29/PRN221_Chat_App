@@ -1,7 +1,7 @@
 ﻿using Helpers;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Presentation.Models.Options
+namespace Options.Models
 {
     public sealed class JwtOptions
     {
@@ -34,18 +34,6 @@ namespace Presentation.Models.Options
             var encryptedKey = GetKey();
 
             return new SymmetricSecurityKey(key: encryptedKey);
-        }
-
-        public static JwtOptions Bind(ConfigurationManager configurationManager)
-        {
-            var jwtOptions = new JwtOptions();
-
-            configurationManager
-                .GetRequiredSection(ParentSectionName)
-                .GetRequiredSection(SectionName)
-                .Bind(jwtOptions);
-
-            return jwtOptions;
         }
     }
 }

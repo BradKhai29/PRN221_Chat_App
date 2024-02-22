@@ -131,7 +131,8 @@ namespace DataAccess.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "DATETIME", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValue: new Guid("1111aaaa-1111-aaaa-1111-aaaa1111aaaa")),
-                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    UserEntityId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Name = table.Column<string>(type: "NVARCHAR(256)", maxLength: 256, nullable: false),
                     NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -139,8 +140,8 @@ namespace DataAccess.Migrations
                 {
                     table.PrimaryKey("PK_Roles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Roles_Users_CreatedBy",
-                        column: x => x.CreatedBy,
+                        name: "FK_Roles_Users_UserEntityId",
+                        column: x => x.UserEntityId,
                         principalTable: "Users",
                         principalColumn: "Id");
                 });
@@ -220,9 +221,7 @@ namespace DataAccess.Migrations
                     ReplyMessageId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "DATETIME", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "DATETIME", nullable: false),
-                    UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UpdaterId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    UpdatedAt = table.Column<DateTime>(type: "DATETIME", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -244,36 +243,6 @@ namespace DataAccess.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ChatMessages_Users_UpdaterId",
-                        column: x => x.UpdaterId,
-                        principalTable: "Users",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserRecentChatGroups",
-                columns: table => new
-                {
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ChatGroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "DATETIME", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserRecentChatGroups", x => new { x.UserId, x.ChatGroupId });
-                    table.ForeignKey(
-                        name: "FK_UserRecentChatGroups_ChatGroups_ChatGroupId",
-                        column: x => x.ChatGroupId,
-                        principalTable: "ChatGroups",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserRecentChatGroups_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -283,7 +252,8 @@ namespace DataAccess.Migrations
                     MemberId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ChatGroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "DATETIME", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "DATETIME", nullable: false),
+                    LastAccessedAt = table.Column<DateTime>(type: "DATETIME", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -423,11 +393,6 @@ namespace DataAccess.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_ChatMessages_UpdaterId",
-                table: "ChatMessages",
-                column: "UpdaterId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_RefreshTokens_UserId",
                 table: "RefreshTokens",
                 column: "UserId");
@@ -438,9 +403,15 @@ namespace DataAccess.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Roles_CreatedBy",
+                name: "IX_Roles_Name",
                 table: "Roles",
-                column: "CreatedBy");
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Roles_UserEntityId",
+                table: "Roles",
+                column: "UserEntityId");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
@@ -458,17 +429,6 @@ namespace DataAccess.Migrations
                 name: "IX_UserLogins_UserId",
                 table: "UserLogins",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserRecentChatGroups_ChatGroupId",
-                table: "UserRecentChatGroups",
-                column: "ChatGroupId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserRecentChatGroups_UserId",
-                table: "UserRecentChatGroups",
-                column: "UserId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRoles_RoleId",
@@ -513,9 +473,6 @@ namespace DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserLogins");
-
-            migrationBuilder.DropTable(
-                name: "UserRecentChatGroups");
 
             migrationBuilder.DropTable(
                 name: "UserRoles");
