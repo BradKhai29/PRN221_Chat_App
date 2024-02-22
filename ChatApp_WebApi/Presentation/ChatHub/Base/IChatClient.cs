@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Presentation.ChatHub.Base
+namespace Presentation.ChatHub.Base;
+
+/// <summary>
+/// Represents a chat client interface.
+/// </summary>
+public interface IChatClient
 {
-    public interface IChatClient
-    {
-        Task SendMessage(string message);
-        Task ReceiveMessage(string user, string message);
-    }
+    Task SendMessage(string message);
+    Task ReceiveMessage(string user, string message);
 }

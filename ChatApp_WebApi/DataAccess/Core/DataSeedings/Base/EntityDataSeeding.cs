@@ -1,13 +1,12 @@
 ﻿using DataAccess.Core.Entities.Base;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DataAccess.Core.DataSeedings.Base
-{
-    internal abstract class EntityDataSeeding<TEntity> : IEntityDataSeeding<TEntity>
-        where TEntity : class, IBaseEntity
-    {
-        public abstract void Configure(EntityTypeBuilder<TEntity> builder);
+namespace DataAccess.Core.DataSeedings.Base;
 
-        protected abstract List<TEntity> GetSeedEntities();
-    }
+internal abstract class EntityDataSeeding<TEntity> : IEntityDataSeeding<TEntity>
+    where TEntity : class, IBaseEntity
+{
+    public abstract void Configure(EntityTypeBuilder<TEntity> builder);
+
+    protected abstract List<TEntity> GetSeedEntities();
 }

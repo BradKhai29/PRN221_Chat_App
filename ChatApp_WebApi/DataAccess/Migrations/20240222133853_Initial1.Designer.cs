@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ChatAppDbContext))]
-    [Migration("20240218150349_Initial")]
-    partial class Initial
+    [Migration("20240222133853_Initial1")]
+    partial class Initial1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -107,6 +107,9 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("DATETIME");
 
+                    b.Property<DateTime>("LastAccessedAt")
+                        .HasColumnType("DATETIME");
+
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
@@ -183,12 +186,6 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("DATETIME");
 
-                    b.Property<Guid>("UpdatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("UpdaterId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ChatGroupId");
@@ -197,8 +194,6 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("ReplyMessageId")
                         .IsUnique();
-
-                    b.HasIndex("UpdaterId");
 
                     b.ToTable("ChatMessages", (string)null);
                 });
@@ -644,17 +639,11 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("DataAccess.Core.Entities.UserEntity", "Updater")
-                        .WithMany()
-                        .HasForeignKey("UpdaterId");
-
                     b.Navigation("ChatGroup");
 
                     b.Navigation("ReplyMessage");
 
                     b.Navigation("Sender");
-
-                    b.Navigation("Updater");
                 });
 
             modelBuilder.Entity("DataAccess.Core.Entities.RefreshTokenEntity", b =>
