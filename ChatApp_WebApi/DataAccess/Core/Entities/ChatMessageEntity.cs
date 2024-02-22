@@ -4,8 +4,7 @@ namespace DataAccess.Core.Entities;
 
 public class ChatMessageEntity : 
     GuidEntity,
-    ICreatedEntity,
-    IUpdatedEntity
+    ICreatedEntity
 {
     public string Content { get; set; }
 
@@ -21,16 +20,12 @@ public class ChatMessageEntity :
 
     public DateTime UpdatedAt { get; set; }
 
-    public Guid UpdatedBy { get; set; }
-
     // Navigation Properties
     public ChatGroupEntity ChatGroup { get; set; }
 
     public ChatMessageEntity ReplyMessage { get; set; }
 
     public UserEntity Sender { get; set; }
-
-    public UserEntity Updater { get; set; }
 
     #region MetaData
     public static class MetaData

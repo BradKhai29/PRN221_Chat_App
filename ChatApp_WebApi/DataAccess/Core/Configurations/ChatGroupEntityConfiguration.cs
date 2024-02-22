@@ -19,7 +19,7 @@ internal class ChatGroupEntityConfiguration :
         // Properties Configuration,
         builder
             .Property(chatGroup => chatGroup.Name)
-            .HasColumnType(SqlDataTypes.NVARCHAR_200)
+            .HasColumnType(SqlDataTypes.SqlServer.NVARCHAR_200)
             .IsRequired();
 
         builder
@@ -28,7 +28,7 @@ internal class ChatGroupEntityConfiguration :
 
         builder
             .Property(chatGroup => chatGroup.CreatedAt)
-            .HasColumnType(SqlDataTypes.DATETIME)
+            .HasColumnType(SqlDataTypes.SqlServer.DATETIME)
             .IsRequired();
 
         builder

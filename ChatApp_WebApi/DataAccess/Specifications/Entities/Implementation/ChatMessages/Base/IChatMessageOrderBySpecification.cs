@@ -7,12 +7,9 @@ namespace DataAccess.Specifications.Entities.Implementation.ChatMessages.Base
         IGenericSpecification<ChatMessageEntity>
     {
         /// <summary>
-        ///     Order the list by the datetime when this chat-message was created.
+        ///     Order the list by the datetime when the 
+        ///     chat-message was created descendingly.
         /// </summary>
-        /// <param name="isAscending">
-        ///     Default is true
-        /// </param>
-        /// <returns></returns>
-        IChatMessageOrderBySpecification ByCreatedAt(bool isAscending);
+        IChatMessageOrderBySpecification ByCreatedAtDescendingly();
     }
 }

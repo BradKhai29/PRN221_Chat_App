@@ -17,7 +17,7 @@ namespace DataAccess.Core.Configurations
 
             builder
                 .Property(status => status.Name)
-                .HasColumnType(SqlDataTypes.NVARCHAR_20)
+                .HasColumnType(SqlDataTypes.SqlServer.NVARCHAR_20)
                 .IsRequired();
 
             builder

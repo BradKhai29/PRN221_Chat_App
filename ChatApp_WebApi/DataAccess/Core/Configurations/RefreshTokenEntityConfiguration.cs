@@ -22,7 +22,7 @@ namespace DataAccess.Core.Configurations
 
             builder
                 .Property(token => token.Value)
-                .HasColumnType(SqlDataTypes.NVARCHAR_32)
+                .HasColumnType(SqlDataTypes.SqlServer.NVARCHAR_32)
                 .IsRequired();
 
             builder
@@ -31,12 +31,12 @@ namespace DataAccess.Core.Configurations
 
             builder
                 .Property(token => token.CreatedAt)
-                .HasColumnType(SqlDataTypes.DATETIME)
+                .HasColumnType(SqlDataTypes.SqlServer.DATETIME)
                 .IsRequired();
 
             builder
                 .Property(token => token.ExpiredAt)
-                .HasColumnType(SqlDataTypes.DATETIME)
+                .HasColumnType(SqlDataTypes.SqlServer.DATETIME)
                 .IsRequired();
 
             // Relationships Configuration.

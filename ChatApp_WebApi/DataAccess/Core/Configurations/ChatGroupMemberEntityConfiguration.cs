@@ -22,12 +22,12 @@ namespace DataAccess.Core.Configurations
             // Properties Configuration
             builder
                 .Property(chatGroupMember => chatGroupMember.CreatedAt)
-                .HasColumnType(SqlDataTypes.DATETIME)
+                .HasColumnType(SqlDataTypes.SqlServer.DATETIME)
                 .IsRequired();
 
             builder
                 .Property(chatGroupMember => chatGroupMember.LastAccessedAt)
-                .HasColumnType(SqlDataTypes.DATETIME)
+                .HasColumnType(SqlDataTypes.SqlServer.DATETIME)
                 .IsRequired();
 
             // Relationships Configuration

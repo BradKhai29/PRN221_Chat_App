@@ -22,7 +22,7 @@ namespace DataAccess.Core.Configurations
 
             builder
                 .Property(groupType => groupType.Name)
-                .HasColumnType(SqlDataTypes.NVARCHAR_20)
+                .HasColumnType(SqlDataTypes.SqlServer.NVARCHAR_20)
                 .IsRequired();
         }
     }

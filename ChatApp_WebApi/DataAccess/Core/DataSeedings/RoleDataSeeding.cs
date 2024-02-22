@@ -1,4 +1,5 @@
 ﻿using DataAccess.Commons.DataSeedings;
+using DataAccess.Commons.SystemConstants;
 using DataAccess.Core.DataSeedings.Base;
 using DataAccess.Core.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -16,31 +17,41 @@ namespace DataAccess.Core.DataSeedings
 
         protected override List<RoleEntity> GetSeedEntities()
         {
+            var systemId = DefaultValues.SystemId;
+
             var seedEntities = new List<RoleEntity>(capacity: 4)
             {
                 new()
                 {
-                    Id = DataSeedingValues.Roles.System.Id,
-                    Name = DataSeedingValues.Roles.System.Name,
-                    NormalizedName = DataSeedingValues.Roles.System.Name.ToUpper()
+                    Id = SeedingValues.Roles.System.Id,
+                    Name = SeedingValues.Roles.System.Name,
+                    NormalizedName = SeedingValues.Roles.System.Name.ToUpper(),
+                    CreatedAt = DateTime.UtcNow,
+                    CreatedBy = systemId
                 },
                 new()
                 {
-                    Id = DataSeedingValues.Roles.User.Id,
-                    Name = DataSeedingValues.Roles.User.Name,
-                    NormalizedName = DataSeedingValues.Roles.User.Name.ToUpper()
+                    Id = SeedingValues.Roles.User.Id,
+                    Name = SeedingValues.Roles.User.Name,
+                    NormalizedName = SeedingValues.Roles.User.Name.ToUpper(),
+                    CreatedAt = DateTime.UtcNow,
+                    CreatedBy = systemId
                 },
                 new()
                 {
-                    Id = DataSeedingValues.Roles.ChatGroupMember.Id,
-                    Name = DataSeedingValues.Roles.ChatGroupMember.Name,
-                    NormalizedName = DataSeedingValues.Roles.ChatGroupMember.Name.ToUpper()
+                    Id = SeedingValues.Roles.ChatGroupMember.Id,
+                    Name = SeedingValues.Roles.ChatGroupMember.Name,
+                    NormalizedName = SeedingValues.Roles.ChatGroupMember.Name.ToUpper(),
+                    CreatedAt = DateTime.UtcNow,
+                    CreatedBy = systemId
                 },
                 new()
                 {
-                    Id = DataSeedingValues.Roles.ChatGroupManager.Id,
-                    Name = DataSeedingValues.Roles.ChatGroupManager.Name,
-                    NormalizedName = DataSeedingValues.Roles.ChatGroupManager.Name.ToUpper()
+                    Id = SeedingValues.Roles.ChatGroupManager.Id,
+                    Name = SeedingValues.Roles.ChatGroupManager.Name,
+                    NormalizedName = SeedingValues.Roles.ChatGroupManager.Name.ToUpper(),
+                    CreatedAt = DateTime.UtcNow,
+                    CreatedBy = systemId
                 }
             };
 

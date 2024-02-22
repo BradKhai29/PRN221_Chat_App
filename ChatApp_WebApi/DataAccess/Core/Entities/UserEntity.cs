@@ -1,5 +1,7 @@
 ﻿using DataAccess.Core.Entities.Base;
 using Microsoft.AspNetCore.Identity;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace DataAccess.Core.Entities;
 
@@ -22,13 +24,11 @@ public class UserEntity :
     public Guid UpdatedBy { get; set; }
 
     public DateTime RemovedAt { get; set; }
-    
+
     public Guid RemovedBy { get; set; }
-    
+
     // Navigation Properties
     public AccountStatusEntity AccountStatus { get; set; }
-
-    public UserRecentChatGroupEntity UserRecentChatGroup { get; set; }
 
     /// <summary>
     ///     Represent the list of chat groups that 

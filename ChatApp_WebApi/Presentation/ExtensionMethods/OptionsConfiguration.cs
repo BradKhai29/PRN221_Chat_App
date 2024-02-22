@@ -1,0 +1,20 @@
+﻿using Microsoft.Extensions.Options;
+using Presentation.OptionsSetup;
+
+namespace Presentation.ExtensionMethods
+{
+    /// <summary>
+    ///     This class contains extension methods for all <see cref="IOptions{T}"/>
+    ///     configuration in this application.
+    /// </summary>
+    public static class OptionsConfiguration
+    {
+        public static IServiceCollection AddOptionsConfiguration(this IServiceCollection services)
+        {
+            services.ConfigureOptions<JwtOptionsSetup>();
+            services.ConfigureOptions<PasswordHashOptionsSetup>();
+
+            return services;
+        }
+    }
+}

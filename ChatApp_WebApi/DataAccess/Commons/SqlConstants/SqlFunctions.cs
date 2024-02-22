@@ -1,6 +1,6 @@
 ﻿namespace DataAccess.Commons.SqlConstants
 {
-    internal class SqlFunctions
+    public class SqlFunctions
     {
         public static class SqlServer
         {
