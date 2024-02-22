@@ -11,10 +11,19 @@ namespace Presentation.ChatHub.ChatHubContext;
 /// Represents the hub context for a specific hub.
 /// </summary>
 /// <typeparam name="THub">The type of the hub.</typeparam>
-public interface IHubContext<THub> where THub : Hub
+public interface IHubContext<THub> where THub : Hub 
 {
+    /// <summary>
+    /// Gets the manager for groups in the hub context.
+    /// </summary>
     IGroupManager Groups { get; }
+    /// <summary>
+    /// Gets the notification client for sending notifications.
+    /// </summary>
     INotificationClient NotifClients { get; }
+    /// <summary>
+    /// Gets the clients connected to the hub.
+    /// </summary>
     IHubClients Clients { get; }
 
 }
