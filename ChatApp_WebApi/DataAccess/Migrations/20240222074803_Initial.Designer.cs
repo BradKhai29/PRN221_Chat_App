@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ChatAppDbContext))]
-    [Migration("20240218150349_Initial")]
+    [Migration("20240222074803_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -107,6 +107,9 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("DATETIME");
 
+                    b.Property<DateTime>("LastAccessedAt")
+                        .HasColumnType("DATETIME");
+
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
@@ -183,12 +186,6 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("DATETIME");
 
-                    b.Property<Guid>("UpdatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("UpdaterId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ChatGroupId");
@@ -197,8 +194,6 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("ReplyMessageId")
                         .IsUnique();
-
-                    b.HasIndex("UpdaterId");
 
                     b.ToTable("ChatMessages", (string)null);
                 });
@@ -251,21 +246,28 @@ namespace DataAccess.Migrations
                         .HasDefaultValue(new Guid("1111aaaa-1111-aaaa-1111-aaaa1111aaaa"));
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("NVARCHAR(50)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<Guid?>("UserEntityId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatedBy");
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.HasIndex("UserEntityId");
 
                     b.ToTable("Roles", (string)null);
                 });
@@ -367,27 +369,6 @@ namespace DataAccess.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("Users", (string)null);
-                });
-
-            modelBuilder.Entity("DataAccess.Core.Entities.UserRecentChatGroupEntity", b =>
-                {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ChatGroupId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("DATETIME");
-
-                    b.HasKey("UserId", "ChatGroupId");
-
-                    b.HasIndex("ChatGroupId");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("UserRecentChatGroups", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -644,17 +625,11 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("DataAccess.Core.Entities.UserEntity", "Updater")
-                        .WithMany()
-                        .HasForeignKey("UpdaterId");
-
                     b.Navigation("ChatGroup");
 
                     b.Navigation("ReplyMessage");
 
                     b.Navigation("Sender");
-
-                    b.Navigation("Updater");
                 });
 
             modelBuilder.Entity("DataAccess.Core.Entities.RefreshTokenEntity", b =>
@@ -670,13 +645,9 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("DataAccess.Core.Entities.RoleEntity", b =>
                 {
-                    b.HasOne("DataAccess.Core.Entities.UserEntity", "Creator")
+                    b.HasOne("DataAccess.Core.Entities.UserEntity", null)
                         .WithMany("CreatedRoles")
-                        .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Creator");
+                        .HasForeignKey("UserEntityId");
                 });
 
             modelBuilder.Entity("DataAccess.Core.Entities.UserEntity", b =>
@@ -688,25 +659,6 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("AccountStatus");
-                });
-
-            modelBuilder.Entity("DataAccess.Core.Entities.UserRecentChatGroupEntity", b =>
-                {
-                    b.HasOne("DataAccess.Core.Entities.ChatGroupEntity", "ChatGroup")
-                        .WithMany("UserRecentChatGroups")
-                        .HasForeignKey("ChatGroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DataAccess.Core.Entities.UserEntity", "User")
-                        .WithOne("UserRecentChatGroup")
-                        .HasForeignKey("DataAccess.Core.Entities.UserRecentChatGroupEntity", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ChatGroup");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -770,8 +722,6 @@ namespace DataAccess.Migrations
                     b.Navigation("ChatGroupMembers");
 
                     b.Navigation("ChatMessages");
-
-                    b.Navigation("UserRecentChatGroups");
                 });
 
             modelBuilder.Entity("DataAccess.Core.Entities.ChatGroupTypeEntity", b =>
@@ -795,8 +745,6 @@ namespace DataAccess.Migrations
                     b.Navigation("CreatedRoles");
 
                     b.Navigation("RefreshTokens");
-
-                    b.Navigation("UserRecentChatGroup");
                 });
 #pragma warning restore 612, 618
         }

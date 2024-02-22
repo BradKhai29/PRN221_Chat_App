@@ -5,7 +5,8 @@ namespace Presentation.ExtensionMethods
 {
     public static class DbContextConfiguration
     {
-        private const string SectionName = "ChatApp";
+        private const string SectionName = "ChatAppLocalDb";
+        private const string SectionName2 = "ChatAppRemoteDb";
 
         public static IServiceCollection AddDbContextConfiguration(
             this IServiceCollection services,

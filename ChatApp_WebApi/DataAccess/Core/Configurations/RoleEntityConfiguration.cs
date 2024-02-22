@@ -13,6 +13,16 @@ namespace DataAccess.Core.Configurations
         {
             builder.ToTable(RoleEntity.MetaData.TableName);
 
+            // Properties Configuraiton.
+            builder
+                .Property(role => role.Name)
+                .HasColumnType(SqlDataTypes.SqlServer.NVARCHAR_50)
+                .IsRequired();
+
+            builder
+                .HasIndex(role => role.Name)
+                .IsUnique();
+
             builder
                 .Property(role => role.CreatedAt)
                 .HasColumnType(SqlDataTypes.SqlServer.DATETIME)
@@ -22,13 +32,6 @@ namespace DataAccess.Core.Configurations
                 .Property(role => role.CreatedBy)
                 .HasDefaultValue(DefaultValues.SystemId)
                 .IsRequired();
-
-            // Relationships Configuration
-            builder
-                .HasOne(role => role.Creator)
-                .WithMany(user => user.CreatedRoles)
-                .HasForeignKey(role => role.CreatedBy)
-                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

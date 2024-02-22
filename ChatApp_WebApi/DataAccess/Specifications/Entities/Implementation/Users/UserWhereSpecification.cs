@@ -23,6 +23,22 @@ namespace DataAccess.Specifications.Entities.Implementation.Users
             return this;
         }
 
+        public IUserWhereSpecification ByEmail(string email)
+        {
+            Criteria = user => user.Email.Equals(email);
+
+            return this;
+        }
+
+        public IUserWhereSpecification ForLogin(string username, string passwordHash)
+        {
+            Criteria = user => 
+                user.UserName.Equals(username)
+                && user.PasswordHash.Equals(passwordHash);
+
+            return this;
+        }
+
         public IUserWhereSpecification IsPendingById(Guid id)
         {
             Criteria = user =>

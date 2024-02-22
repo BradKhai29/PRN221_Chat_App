@@ -1,7 +1,6 @@
 using DataAccess.Core.Entities;
 using DataAccess.Repositories.Base;
 using DataAccess.Repositories.Base.Generics;
-using DataAccess.Specifications.Entities.Base.Generics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +11,8 @@ public class UserRepository :
     IUserRepository
 {
     private readonly UserManager<UserEntity> _userManager;
+
+    public UserManager<UserEntity> Manager => _userManager;
 
     public UserRepository(
         DbContext dbContext,
@@ -31,6 +32,11 @@ public class UserRepository :
     }
 
     public override Task<UserEntity> FindByNameAsync(string username)
+    {
+        return _userManager.FindByNameAsync(username);
+    }
+
+    public Task<UserEntity> FindByUsernameAsync(string username)
     {
         return _userManager.FindByNameAsync(username);
     }
