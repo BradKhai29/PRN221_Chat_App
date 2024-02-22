@@ -1,4 +1,5 @@
 ﻿using Microsoft.IdentityModel.Protocols;
+using Presentation.ChatHub.ChatConnection;
 
 namespace Presentation.ExtensionMethods;
 
@@ -9,6 +10,7 @@ public static class WebApiConfiguration
         services.AddControllers();
         services.ConfigCors();
         services.ConfigureLogging();
+        services.AddSignalRConfiguration();
         return services;
     }
     /// <summary>
@@ -43,5 +45,9 @@ public static class WebApiConfiguration
             });
         });
     }
-
+    private static void AddSignalRConfiguration(this IServiceCollection services)
+    {
+        services.AddSignalR().AddHubOptions<Chat>(
+            options => options.MaximumParallelInvocationsPerClient = 5);
+    }
 }
