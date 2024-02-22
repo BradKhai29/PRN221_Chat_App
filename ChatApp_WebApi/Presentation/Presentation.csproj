@@ -12,8 +12,7 @@
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.0"/>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj"/>
-    <ProjectReference Include="..\Helpers\Helpers.csproj"/>
+    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DTOs\Implementation\Auths\OutGoings\"/>

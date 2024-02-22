@@ -12,20 +12,28 @@ services.AddIdentityConfiguration();
 services.AddDataAccess();
 services.AddBusinessLogic();
 
+// Add configuration for api & related.
+services.AddOptionsConfiguration();
 services.AddWebApiConfiguration();
 services.AddSwaggerConfiguration();
+
+// Add configuration for authentication & authorization.
 services.AddAuthenticationConfiguration(configurationManager);
-services.AddAuthorizationConfiguration(configurationManager);
+services.AddAuthorizationConfiguration();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.UseSwagger();
-app.UseSwaggerUI(setupAction: options =>
+app.UseSwaggerUI(setupAction: swaggerOptions =>
 {
-    options.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: SwaggerConfiguration.SwaggerDocVersion);
-    options.RoutePrefix = string.Empty;
-    options.DefaultModelsExpandDepth(depth: -1);
+    swaggerOptions.SwaggerEndpoint(
+        url: "/swagger/v1/swagger.json",
+        name: SwaggerConfiguration.SwaggerDocVersion);
+
+    swaggerOptions.RoutePrefix = string.Empty;
+
+    swaggerOptions.DefaultModelsExpandDepth(depth: -1);
 });
 
 app.UseHttpsRedirection();

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Commons\Constants\" />
+    <Folder Include="ExtensionMethods\Entities\" />
   </ItemGroup>
 
 </Project>

@@ -18,17 +18,17 @@ public class ChatAppDbContext :
     // {
     // }
 
-    public ChatAppDbContext() : base()
-    {
-    }
+    //public ChatAppDbContext() : base()
+    //{
+    //}
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-
-        var connectionString = "Data Source=localhost,1433;Initial Catalog=ChatApp_PRN221;User ID=sa;Password=123123;Trust Server Certificate=True";
-        optionsBuilder.UseSqlServer(connectionString);
-        optionsBuilder.UseLoggerFactory(GetLoggerFactory());
-    }
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //{
+    //    // Below comment for migrations purpose.
+    //    var connectionString = "Data Source=localhost;Initial Catalog=ChatApp_PRN221;User ID=sa;Password=123123;Trust Server Certificate=True";
+    //    optionsBuilder.UseSqlServer(connectionString);
+    //    optionsBuilder.UseLoggerFactory(GetLoggerFactory());
+    //}
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -79,7 +79,6 @@ public class ChatAppDbContext :
             .ApplyConfiguration(new AccountStatusEntityConfiguration())
             .ApplyConfiguration(new ChatGroupTypeEntityConfiguration())
             .ApplyConfiguration(new ChatGroupEntityConfiguration())
-            .ApplyConfiguration(new UserRecentChatGroupEntityConfiguration())
             .ApplyConfiguration(new ChatGroupMemberEntityConfiguration())
             .ApplyConfiguration(new ChatMessageEntityConfiguration())
             .ApplyConfiguration(new RefreshTokenEntityConfiguration());

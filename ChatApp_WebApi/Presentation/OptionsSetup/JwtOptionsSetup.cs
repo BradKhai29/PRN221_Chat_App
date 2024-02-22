@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
-using Presentation.Models.Options;
+using Options.Models;
 
 namespace Presentation.OptionsSetup;
 
