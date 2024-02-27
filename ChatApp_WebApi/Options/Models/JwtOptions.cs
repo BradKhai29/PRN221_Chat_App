@@ -1,11 +1,12 @@
 ﻿using Helpers;
 using Microsoft.IdentityModel.Tokens;
+using Options.Commons.Constants;
 
 namespace Options.Models
 {
     public sealed class JwtOptions
     {
-        public const string ParentSectionName = "Authentication";
+        public const string ParentSectionName = AuthenticationSection.Name;
         public const string SectionName = "Jwt";
 
         public string Issuer { get; set; }
@@ -34,6 +35,26 @@ namespace Options.Models
             var encryptedKey = GetKey();
 
             return new SymmetricSecurityKey(key: encryptedKey);
+        }
+
+        public TimeSpan GetLifeSpan(bool isLongLive)
+        {
+            if (isLongLive)
+            {
+                return TimeSpan.FromDays(DefaultLongLiveDays);
+            }
+
+            return TimeSpan.FromDays(DefaultShortLiveDays);
+        }
+
+        public TimeSpan GetLongLifeSpan()
+        {
+            return TimeSpan.FromDays(DefaultLongLiveDays);
+        }
+
+        public TimeSpan GetShortLifeSpan()
+        {
+            return TimeSpan.FromDays(DefaultShortLiveDays);
         }
     }
 }

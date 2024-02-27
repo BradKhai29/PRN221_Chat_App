@@ -5,6 +5,8 @@ using DataAccess.Specifications.Managers.SuperManager.Base;
 using DataAccess.UnitOfWorks.Base;
 using Helpers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Options.Models;
 
 namespace BusinessLogic.Services.Entities.Implementation
 {
@@ -14,13 +16,16 @@ namespace BusinessLogic.Services.Entities.Implementation
         // Backing fields.
         private readonly IUnitOfWork<ChatAppDbContext> _unitOfWork;
         private readonly ISuperSpecificationManager _specificationManager;
+        private readonly JwtOptions _jwtOptions;
 
         public RefreshTokenHandlingService(
             IUnitOfWork<ChatAppDbContext> unitOfWork,
-            ISuperSpecificationManager specificationManager)
+            ISuperSpecificationManager specificationManager,
+            IOptions<JwtOptions> jwtOptions)
         {
             _unitOfWork = unitOfWork;
             _specificationManager = specificationManager;
+            _jwtOptions = jwtOptions.Value;
         }
 
         public async Task<bool> AddAsync(
@@ -64,8 +69,10 @@ namespace BusinessLogic.Services.Entities.Implementation
             return result;
         }
 
-        public RefreshTokenEntity Generate(Guid userId, TimeSpan lifeSpan)
+        public RefreshTokenEntity Generate(Guid userId, bool rememberMe)
         {
+            var lifeSpan = _jwtOptions.GetLifeSpan(isLongLive: rememberMe);
+
             return new RefreshTokenEntity
             {
                 Id = Guid.NewGuid(),

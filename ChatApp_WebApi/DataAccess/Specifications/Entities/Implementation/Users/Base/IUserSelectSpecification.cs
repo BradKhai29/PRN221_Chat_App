@@ -18,5 +18,11 @@ namespace DataAccess.Specifications.Entities.Implementation.Users.Base
         ///     properties/fields that need for login feature.
         /// </summary>
         IUserSelectSpecification ForLogin();
+
+        /// <summary>
+        ///     This specification is used to select required 
+        ///     properties/fields that need for email-confirmation feature.
+        /// </summary>
+        IUserSelectSpecification ForEmailConfirmation();
     }
 }

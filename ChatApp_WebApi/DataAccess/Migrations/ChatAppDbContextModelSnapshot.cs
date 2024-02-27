@@ -48,7 +48,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = new Guid("cc751bfc-77b9-4a97-85d4-c88e1f3db4de"),
-                            Name = "Registered"
+                            Name = "EmailConfirmed"
                         },
                         new
                         {
@@ -219,7 +219,17 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AccessTokenId")
+                        .IsUnique();
+
+                    SqlServerIndexBuilderExtensions.IsClustered(b.HasIndex("AccessTokenId"), false);
+
                     b.HasIndex("UserId");
+
+                    b.HasIndex("Value")
+                        .IsUnique();
+
+                    SqlServerIndexBuilderExtensions.IsClustered(b.HasIndex("Value"), false);
 
                     b.ToTable("RefreshTokens", (string)null);
                 });
@@ -550,6 +560,9 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("DataAccess.Core.Entities.UserTokenEntity", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>");
+
+                    b.Property<DateTime>("ExpiredAt")
+                        .HasColumnType("DATETIME");
 
                     b.ToTable("UserTokens", (string)null);
 

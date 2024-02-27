@@ -14,6 +14,7 @@ namespace DataAccess.Specifications.Managers.SuperManager.Implementation
         private IRefreshTokenSpecificationManager _refreshTokenSpecificationManager;
         private IUserSpecificationManager _userSpecificationManager;
         private IUserRoleSpecificationManager _userRoleSpecificationManager;
+        private IUserTokenSpecificationManager _userTokenSpecificationManager;
 
         public IChatGroupSpecificationManager ChatGroup
         {
@@ -72,6 +73,16 @@ namespace DataAccess.Specifications.Managers.SuperManager.Implementation
                 _userRoleSpecificationManager ??= new UserRoleSpecificationManager();
 
                 return _userRoleSpecificationManager;
+            }
+        }
+
+        public IUserTokenSpecificationManager UserToken
+        {
+            get
+            {
+                _userTokenSpecificationManager ??= new UserTokenSpecificationManager();
+
+                return _userTokenSpecificationManager;
             }
         }
     }

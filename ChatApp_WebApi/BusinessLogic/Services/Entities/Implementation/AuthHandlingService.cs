@@ -29,18 +29,59 @@ namespace BusinessLogic.Services.Entities.Implementation
             _passwordService = passwordService;
         }
 
+        public async Task<bool> ConfirmEmailForUserAsync(
+            UserEntity user,
+            CancellationToken cancellationToken)
+        {
+            var result = false;
+
+            var executionStrategy = _unitOfWork.CreateExecutionStrategy();
+
+            await executionStrategy.ExecuteAsync(operation: async () =>
+            {
+                await _unitOfWork.CreateTransactionAsync(cancellationToken: cancellationToken);
+
+                try
+                {
+                    await _unitOfWork.UserRepository.BulkUpdateForEmailConfirmationAsync(
+                        foundUser: user,
+                        cancellationToken: cancellationToken);
+
+                    await _unitOfWork.SaveChangesToDatabaseAsync(
+                        cancellationToken: cancellationToken);
+
+                    await _unitOfWork.CommitTransactionAsync(
+                        cancellationToken: cancellationToken);
+
+                    result = true;
+                }
+                catch
+                {
+                    await _unitOfWork.RollBackTransactionAsync(
+                        cancellationToken: cancellationToken);
+                }
+                finally
+                {
+                    await _unitOfWork.DisposeTransactionAsync(
+                        cancellationToken: cancellationToken);
+                }
+            });
+
+            return result;
+        }
+
         public Task<bool> IsEmailExistedAsync(string email, CancellationToken cancellationToken)
         {
             return _unitOfWork.UserRepository.IsFoundBySpecificationsAsync(
                 cancellationToken: cancellationToken,
-                _specificationManager.User.Where.ByEmail(email: email));
+                _specificationManager.User.Where.ByEmail(email));
         }
 
         public Task<bool> IsUsernameExistedAsync(string username, CancellationToken cancellationToken)
         {
             return _unitOfWork.UserRepository.IsFoundBySpecificationsAsync(
                 cancellationToken: cancellationToken,
-                _specificationManager.User.Where.ByUsername(username: username));
+                _specificationManager.User.Where.ByUsername(username));
         }
 
         public async Task<IResult<UserEntity>> LoginAsync(
@@ -48,7 +89,7 @@ namespace BusinessLogic.Services.Entities.Implementation
             string password,
             CancellationToken cancellationToken)
         {
-            var result = Result<UserEntity>.Failed();   
+            var result = Result<UserEntity>.Failed();
             var passwordHash = _passwordService.GetHashPassword(password);
 
             var foundUser = await _unitOfWork.UserRepository.FindBySpecificationsAsync(
@@ -64,11 +105,11 @@ namespace BusinessLogic.Services.Entities.Implementation
             return Result<UserEntity>.Success(foundUser);
         }
 
-        public async Task<bool> RegisterAsync(
-            RegisterInfo registerInfo,
+        public async Task<IResult<Guid>> RegisterAsync(
+            RegisterInfoModel registerInfo,
             CancellationToken cancellationToken)
         {
-            var result = false;
+            var result = Result<Guid>.Failed();
 
             var executionStrategy = _unitOfWork.CreateExecutionStrategy();
 
@@ -84,7 +125,7 @@ namespace BusinessLogic.Services.Entities.Implementation
                         UserName = registerInfo.Username,
                         Email = registerInfo.Email,
                         PasswordHash = _passwordService.GetHashPassword(registerInfo.Password),
-                        AccountStatusId = SeedingValues.AccountStatuses.Registered.Id,
+                        AccountStatusId = SeedingValues.AccountStatuses.EmailConfirmed.Id,
                         AvatarUrl = DefaultValues.UserAvatarUrl,
                         CreatedAt = DateTime.UtcNow,
                         UpdatedAt = DateTime.UtcNow,
@@ -100,7 +141,7 @@ namespace BusinessLogic.Services.Entities.Implementation
                     await _unitOfWork.CommitTransactionAsync(
                         cancellationToken: cancellationToken);
 
-                    result = true;
+                    result = Result<Guid>.Success(user.Id);
                 }
                 catch
                 {

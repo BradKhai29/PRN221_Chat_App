@@ -11,6 +11,7 @@ namespace DataAccess.Specifications.Managers.Entities.Implementation
     {
         // Backing fields.
         private IChatGroupMemberWhereSpecification _whereSpecification;
+        private IChatGroupMemberSelectSpecification _selectSpecification;
         private GenericAsNoTrackingSpecification<ChatGroupMemberEntity> _asNoTrackingSpecification;
         private GenericAsSplitQuerySpecification<ChatGroupMemberEntity> _asSplitQuerySpecification;
 
@@ -21,6 +22,16 @@ namespace DataAccess.Specifications.Managers.Entities.Implementation
                 _whereSpecification ??= new ChatGroupMemberWhereSpecification();
 
                 return _whereSpecification;
+            }
+        }
+
+        public IChatGroupMemberSelectSpecification Select
+        {
+            get
+            {
+                _selectSpecification ??= new ChatGroupMemberSelectSpecification();
+
+                return _selectSpecification;
             }
         }
 
@@ -43,5 +54,6 @@ namespace DataAccess.Specifications.Managers.Entities.Implementation
                 return _asSplitQuerySpecification;
             }
         }
+
     }
 }

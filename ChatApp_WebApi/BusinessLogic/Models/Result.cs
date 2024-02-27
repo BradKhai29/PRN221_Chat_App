@@ -2,7 +2,7 @@
 
 namespace BusinessLogic.Models
 {
-    internal class Result<TValue> : IResult<TValue>
+    public class Result<TValue> : IResult<TValue>
     {
         public TValue Value { get; set; }
 

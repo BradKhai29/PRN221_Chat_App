@@ -39,29 +39,35 @@ namespace DataAccess.Specifications.Entities.Implementation.Users
             return this;
         }
 
-        public IUserWhereSpecification IsPendingById(Guid id)
+        public IUserWhereSpecification IsPendingStatus(Guid userId)
         {
+            var accountStatusId = SeedingValues.AccountStatuses.Pending.Id;
+
             Criteria = user =>
-                user.Id.Equals(id)
-                && user.AccountStatusId.Equals(SeedingValues.AccountStatuses.Pending.Id);
+                user.Id.Equals(userId)
+                && user.AccountStatusId.Equals(accountStatusId);
 
             return this;
         }
 
-        public IUserWhereSpecification IsRegisteredById(Guid id)
+        public IUserWhereSpecification IsEmailConfirmedStatus(Guid userId)
         {
+            var accountStatusId = SeedingValues.AccountStatuses.EmailConfirmed.Id;
+
             Criteria = user =>
-                user.Id.Equals(id)
-                && user.AccountStatusId.Equals(SeedingValues.AccountStatuses.Registered.Id);
+                user.Id.Equals(userId)
+                && user.AccountStatusId.Equals(accountStatusId);
 
             return this;
         }
 
-        public IUserWhereSpecification IsBannedById(Guid id)
+        public IUserWhereSpecification IsBannedStatus(Guid userId)
         {
+            var accountStatusId = SeedingValues.AccountStatuses.Banned.Id;
+
             Criteria = user =>
-                user.Id.Equals(id)
-                && user.AccountStatusId.Equals(SeedingValues.AccountStatuses.Registered.Id);
+                user.Id.Equals(userId)
+                && user.AccountStatusId.Equals(accountStatusId);
 
             return this;
         }
