@@ -15,6 +15,13 @@ namespace DataAccess.Specifications.Entities.Implementation.ChatGroupMembers
             return this;
         }
 
+        public IChatGroupMemberWhereSpecification ByMemberId(Guid memberId)
+        {
+            Criteria = chatGroupMember => chatGroupMember.MemberId.Equals(memberId);
+
+            return this;
+        }
+
         public IChatGroupMemberWhereSpecification IsMemberHasPermission(
             Guid memberId,
             Guid chatGroupId,

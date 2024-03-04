@@ -6,5 +6,6 @@ namespace DataAccess.Repositories.Base
     public interface IChatGroupRepository 
         : IGenericRepository<ChatGroupEntity>
     {
+        Task<int> BulkDeleteByIdAsync(Guid chatGroupId, CancellationToken cancellationToken);
     }
 }

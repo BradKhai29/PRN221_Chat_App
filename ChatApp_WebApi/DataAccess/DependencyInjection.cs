@@ -20,7 +20,6 @@ public static class DependencyInjection
     /// </returns>
     public static IServiceCollection AddDataAccess(this IServiceCollection services)
     {
-        services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ISuperSpecificationManager, SuperSpecificationManager>();
         services.AddScoped<IUnitOfWork<ChatAppDbContext>, ChatAppUnitOfWork<ChatAppDbContext>>();
 

@@ -35,5 +35,15 @@ namespace DataAccess.Specifications.Entities.Implementation.Users
 
             return this;
         }
+
+        public IUserSelectSpecification ForEmailConfirmation()
+        {
+            SelectExpression = user => new UserEntity
+            {
+                Id = user.Id
+            };
+
+            return this;
+        }
     }
 }

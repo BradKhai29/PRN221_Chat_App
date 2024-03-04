@@ -31,17 +31,27 @@ namespace BusinessLogic
         /// <returns></returns>
         private static IServiceCollection AddEntityServices(this IServiceCollection services)
         {
+            // Chat services section.
+            services.AddScoped<IChatGroupHandlingService, ChatGroupHandlingService>();
+            services.AddScoped<IChatGroupMemberHandlingService, ChatGroupMemberHandlingService>();
             services.AddScoped<IChatMessageHandlingService, ChatMessageHandlingService>();
-            services.AddScoped<IRefreshTokenHandlingService, RefreshTokenHandlingService>();
+
+            // User services section.
+            services.AddScoped<IUserHandlingService, UserHandlingService>();
+            services.AddScoped<IUserRoleHandlingService, UserRoleHandlingService>();
+            
+            // Other services section.
             services.AddScoped<IAuthHandlingService, AuthHandlingService>();
+            services.AddScoped<IRefreshTokenHandlingService, RefreshTokenHandlingService>();
 
             return services;
         }
 
         private static IServiceCollection AddExternalServices(this IServiceCollection services)
         {
-            services.AddScoped<IAccessTokenHandlingService, AccessTokenHandlingService>();
+            services.AddScoped<IUserTokenHandlingService, UserTokenHandlingService>();
             services.AddScoped<IPasswordHandlingService, PasswordHandlingService>();
+            services.AddScoped<IMailHandlingService, MailHandlingService>();
 
             return services;
         }

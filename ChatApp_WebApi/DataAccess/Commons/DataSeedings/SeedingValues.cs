@@ -14,6 +14,13 @@ namespace DataAccess.Commons.DataSeedings
                 public const string Name = RoleNames.System;
             }
 
+            public static class DoNotRemove
+            {
+                public static readonly Guid Id = new("3120575b-9f22-4330-9f73-8ac89ba3a15c");
+
+                public const string Name = RoleNames.DoNotRemove;
+            }
+
             public static class User
             {
                 public static readonly Guid Id = new("cc751bfc-77b9-4a97-85d4-c88e1f3db4de");
@@ -49,13 +56,13 @@ namespace DataAccess.Commons.DataSeedings
             }
 
             /// <summary>
-            ///     Represent for the register-success status.
+            ///     Represent for the email-confirmed-success status.
             /// </summary>
-            public static class Registered
+            public static class EmailConfirmed
             {
                 public static readonly Guid Id = new("cc751bfc-77b9-4a97-85d4-c88e1f3db4de");
 
-                public const string Name = "Registered";
+                public const string Name = "EmailConfirmed";
             }
 
             public static class Banned

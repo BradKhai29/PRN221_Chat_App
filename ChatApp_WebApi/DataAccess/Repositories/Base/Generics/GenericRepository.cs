@@ -10,7 +10,7 @@ public abstract class GenericRepository<TEntity>
     : IGenericRepository<TEntity>
     where TEntity : class, IBaseEntity
 {
-    private readonly DbSet<TEntity> _dbSet;
+    protected readonly DbSet<TEntity> _dbSet;
 
     protected GenericRepository(DbContext dbContext)
     {
@@ -47,7 +47,7 @@ public abstract class GenericRepository<TEntity>
             cancellationToken: cancellationToken);
     }
 
-    public async Task<IList<TEntity>> GetAllBySpecificationsAsync(
+    public async Task<IEnumerable<TEntity>> GetAllBySpecificationsAsync(
         CancellationToken cancellationToken,
         params IGenericSpecification<TEntity>[] specifications)
     {

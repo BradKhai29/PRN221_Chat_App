@@ -96,7 +96,7 @@ public interface IGenericRepository<TEntity>
         CancellationToken cancellationToken,
         params IGenericSpecification<TEntity>[] specifications);
 
-    Task<IList<TEntity>> GetAllBySpecificationsAsync(
+    Task<IEnumerable<TEntity>> GetAllBySpecificationsAsync(
         CancellationToken cancellationToken,
         params IGenericSpecification<TEntity>[] specifications);
 

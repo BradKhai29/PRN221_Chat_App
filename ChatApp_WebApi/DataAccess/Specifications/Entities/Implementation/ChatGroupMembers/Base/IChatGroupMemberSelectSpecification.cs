@@ -11,5 +11,7 @@ namespace DataAccess.Specifications.Entities.Implementation.ChatGroupMembers.Bas
         ///     properties/fields that need to display in a list.
         /// </summary>
         IChatGroupMemberSelectSpecification ForListDisplay();
+
+        IChatGroupMemberSelectSpecification ForGetAllJoinedGroups();
     }
 }

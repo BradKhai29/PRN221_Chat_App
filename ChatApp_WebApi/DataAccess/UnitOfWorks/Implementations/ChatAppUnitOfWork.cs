@@ -29,6 +29,7 @@ public class ChatAppUnitOfWork<TContext> : IUnitOfWork<TContext>
     private IChatGroupMemberRepository _chatGroupMemberRepository;
     private IChatMessageRepository _chatMessageRepository;
     private IRefreshTokenRepository _refreshTokenRepository;
+    private IUserTokenRepository _userTokenRepository;
 
     // Properties.
     public IAccountStatusRepository AccountStatusRepository
@@ -109,6 +110,15 @@ public class ChatAppUnitOfWork<TContext> : IUnitOfWork<TContext>
         {
             _refreshTokenRepository ??= new RefreshTokenRepository(_dbContext);
             return _refreshTokenRepository;
+        }
+    }
+
+    public IUserTokenRepository UserTokenRepository
+    {
+        get
+        {
+            _userTokenRepository ??= new UserTokenRepository(_dbContext);
+            return _userTokenRepository;
         }
     }
 

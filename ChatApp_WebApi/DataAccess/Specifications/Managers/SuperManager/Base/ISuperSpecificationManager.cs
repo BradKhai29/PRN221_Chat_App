@@ -15,4 +15,6 @@ public interface ISuperSpecificationManager
     IUserSpecificationManager User { get; }
 
     IUserRoleSpecificationManager UserRole { get; }
+
+    IUserTokenSpecificationManager UserToken { get; }
 }

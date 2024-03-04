@@ -14,12 +14,23 @@ public class ChatMessageRepository :
     {
     }
 
-    public Task<int> BulkUpdateForContent(ChatMessageEntity chatMessage, CancellationToken cancellationToken)
+    public Task<int> BulkDeleteById(Guid id, CancellationToken cancellationToken)
+    {
+        return _dbSet
+            .Where(message => message.Id.Equals(id))
+            .ExecuteDeleteAsync(cancellationToken: cancellationToken);
+    }
+
+    public Task<int> BulkUpdateForContent(
+        ChatMessageEntity chatMessage,
+        CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
 
-    public Task<int> BulkUpdateForImages(ChatMessageEntity chatMessage, CancellationToken cancellationToken)
+    public Task<int> BulkUpdateForImages(
+        ChatMessageEntity chatMessage,
+        CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }

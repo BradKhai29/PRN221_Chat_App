@@ -1,6 +1,6 @@
 ﻿namespace BusinessLogic.Models
 {
-    public class RegisterInfo
+    public class RegisterInfoModel
     {
         public string Username { get; set; }
 

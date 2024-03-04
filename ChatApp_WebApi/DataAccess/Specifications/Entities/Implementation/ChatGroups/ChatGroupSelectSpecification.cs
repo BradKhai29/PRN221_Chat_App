@@ -15,7 +15,12 @@ namespace DataAccess.Specifications.Entities.Implementation.ChatGroups
                 Id = chatGroup.Id,
                 Name = chatGroup.Name,
                 CreatedAt = chatGroup.CreatedAt,
-                CreatedBy = chatGroup.CreatedBy,
+                Creator = new UserEntity
+                {
+                    Id = chatGroup.CreatedBy,
+                    UserName = chatGroup.Creator.UserName,
+                    AvatarUrl = chatGroup.Creator.AvatarUrl
+                },
                 MemberCount = chatGroup.MemberCount
             };
 
@@ -28,7 +33,7 @@ namespace DataAccess.Specifications.Entities.Implementation.ChatGroups
             {
                 Id = chatGroup.Id,
                 Name = chatGroup.Name,
-                CreatedAt = chatGroup.CreatedAt
+                CreatedAt = chatGroup.CreatedAt,
             };
 
             return this;

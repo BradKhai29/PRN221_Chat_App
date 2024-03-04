@@ -11,17 +11,20 @@ namespace BusinessLogic.Services.Entities.Base
         /// <summary>
         ///     Generate a refresh-token entity by input <paramref name="userId"/>.
         /// </summary>
+        /// <remarks>
+        ///     The life-span of the refresh-token will be based on 
+        ///     the <paramref name="rememberMe"/> decision from the user.
+        /// </remarks>
         /// <param name="userId">
         ///     The userId this refresh-token belonged to.
         /// </param>
-        /// <param name="lifeSpan">
-        ///     The time-span this refresh-token lives and is valid
-        ///     to use for re-create a new refresh-token.
+        /// <param name="rememberMe">
+        ///     The value of rememberMe decision from the user.
         /// </param>
         /// <returns>
         ///     A new refresh-token instance.
         /// </returns>
-        RefreshTokenEntity Generate(Guid userId, TimeSpan lifeSpan);
+        RefreshTokenEntity Generate(Guid userId, bool rememberMe);
 
         /// <summary>
         ///     Add the refresh-token instance into database.

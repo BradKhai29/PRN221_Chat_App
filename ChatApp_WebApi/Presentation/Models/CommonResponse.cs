@@ -2,18 +2,21 @@
 {
     public class CommonResponse
     {
+        public DateTime ResponsedAt { get; set; } = DateTime.UtcNow;
+
         public bool IsSuccess { get; set; }
 
-        public object Value { get; set; }
+        public object Body { get; set; }
 
-        public IEnumerable<string> Messages { get; set; }
+        public IEnumerable<string> ErrorMessages { get; set; }
 
-        public static CommonResponse Success(object value = null)
+        #region Static Methods
+        public static CommonResponse Success(object body = null)
         {
             return new()
             {
                 IsSuccess = true,
-                Value = value
+                Body = body
             };
         }
         public static CommonResponse Failed(IEnumerable<string> messages)
@@ -21,8 +24,12 @@
             return new CommonResponse
             {
                 IsSuccess = false,
-                Messages = messages
+                ErrorMessages = messages
             };
         }
+        #endregion
+
+        public const string DatabaseErrorMessage = "Something wrong with the database when processing.";
+        public const string InvalidTokenMessage = "The provided token is invalid.";
     }
 }

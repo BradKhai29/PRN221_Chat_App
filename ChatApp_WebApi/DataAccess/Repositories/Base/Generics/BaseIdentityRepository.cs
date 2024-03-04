@@ -10,7 +10,7 @@ public abstract class BaseIdentityRepository<TEntity> :
     IBaseIdentityRepository<TEntity, Guid>
     where TEntity : class, IBaseEntity
 {
-    private readonly DbSet<TEntity> _dbSet;
+    protected readonly DbSet<TEntity> _dbSet;
 
     protected BaseIdentityRepository(DbContext dbContext)
     {
