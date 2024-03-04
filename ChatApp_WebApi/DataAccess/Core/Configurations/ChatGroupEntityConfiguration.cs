@@ -15,7 +15,7 @@ internal class ChatGroupEntityConfiguration :
         builder.ToTable(name: ChatGroupEntity.MetaData.TableName);
 
         builder.HasKey(keyExpression: chatGroup => chatGroup.Id);
-        
+
         // Properties Configuration,
         builder
             .Property(chatGroup => chatGroup.Name)
