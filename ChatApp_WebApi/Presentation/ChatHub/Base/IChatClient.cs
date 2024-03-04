@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Presentation.Models.ViewModel;
 
 namespace Presentation.ChatHub.Base;
 
@@ -10,7 +11,6 @@ namespace Presentation.ChatHub.Base;
 /// </summary>
 public interface IChatClient
 {
-    Task SendMessageToGroup(string user, string message, string groupName);
     Task ReceiveMessage(string user, string message);
-    Task SendMessage(string user, string message);
+    Task SendAsync(string message, MessageViewModel messageViewModel);
 }

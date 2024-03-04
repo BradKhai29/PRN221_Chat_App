@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Presentation.ChatHub.ChatHubContext;
 using Presentation.ChatHub.Base;
 using Microsoft.AspNetCore.SignalR;
 

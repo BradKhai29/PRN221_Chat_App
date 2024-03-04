@@ -2,9 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.SignalR;
+using BusinessLogic.Services.Entities.Base;
 using Presentation.ChatHub.Base;
 using Presentation.ChatHub.ChatConnection;
+using Presentation.Models.ViewModel;
+using Microsoft.AspNetCore.SignalR;
+using System.Text.RegularExpressions;
 
 namespace Presentation.ChatHub;
 
@@ -13,28 +16,85 @@ namespace Presentation.ChatHub;
 /// </summary>
 public class ChatClientHub : Hub<IChatClient>
 {
-    private readonly IHubContext _hubContext;
-    private readonly Chat _connections;
-    public ChatClientHub(IHubContext hubContext)
-    {
-        _hubContext = hubContext;
-    }
-    public async Task ReceiveMessage(string user, string message)
-    {
-        await _hubContext.Clients.All.SendAsync("ReceiveMessage", user, message);
+    private readonly Connections<Chat> _connections = new();
+    private readonly IUserHandlingService _userHandlingService;
+    private readonly IChatGroupHandlingService _groupHandlingServices;
 
+    public ChatClientHub(IUserHandlingService userHandlingService, IChatGroupHandlingService groupHandlingService)
+    {
+        _userHandlingService = userHandlingService;
+        _groupHandlingServices = groupHandlingService;
     }
 
-    public async Task SendMessage(string user, string message)
-    {
-        await _hubContext.Clients.All.SendAsync("ReceiveMessage", user, message);
-    }
 
-    public async Task SendMessageToGroup(string user, string message, string groupName)
+    public async Task SendMessagePrivate(string receiverName, string message)
     {
-        if (_connections.GetValueOfKey())
+        if (_connections.All.TryGetValue(receiverName, out var userId))
         {
-            await _hubContext.Clients.Group(groupName).SendAsync("ReceiveMessage", user, message);
+            var sender = await _userHandlingService.FindUserByNameAsync(receiverName, default);
+            if (!string.IsNullOrEmpty(message.Trim()))
+            {
+                //build message
+                var messageViewModel = new MessageViewModel
+                {
+                    Content = Regex.Replace(message, @"\t|\n|\r", ""),
+                    From = sender.NormalizedUserName,
+                    To = receiverName,
+                    SentTime = DateTime.Now
+                };
+                //send message
+                await Clients.Client(userId.ToString()).SendAsync("newMessage", messageViewModel);
+                await Clients.Caller.SendAsync("newMessage", messageViewModel);
+
+            }
+        }
+    }
+
+    public async Task SendToGroup(Guid groupId, string message)
+    {
+        try
+        {
+            var user = _userHandlingService.FindUserByNameAsync(Context.User.Identity.Name, default);
+            var group = _groupHandlingServices.FindByIdAsync(groupId, default);
+            if (!string.IsNullOrEmpty(message.Trim()))
+            {
+                var msg = new MessageGroupViewModel
+                {
+                    Content = Regex.Replace(message, @"\t|\n|\r", ""),
+                    FromUser = user.Result.NormalizedUserName,
+                    ToGroup = group.Result.Name,
+                    SentTime = DateTime.Now
+                };
+                var messageToViewModel = new MessageViewModel
+                {
+                    Content = msg.Content,
+                    From = msg.FromUser,
+                    To = msg.ToGroup,
+                    SentTime = msg.SentTime
+                };
+                await Clients.Group(group.Result.Name.ToString()).SendAsync("newMessage", messageToViewModel);
+            }
+        }
+        catch (Exception e)
+        {
+            var errorMessage = "Message cannot be sent" + e.Message;
+            var errorViewModel = new MessageViewModel
+            {
+                Content = errorMessage,
+                From = "System",
+                To = "Error",
+                SentTime = DateTime.Now
+            };
+            await Clients.Caller.SendAsync("OnError", errorViewModel);
+        }
+    }
+    public async Task JoinGroup(Guid groupId)
+    {
+        try
+        {
+            var user = _userHandlingService.FindUserByNameAsync(Context.User.Identity.Name, default);
+            await Groups.AddToGroupAsync(Context.ConnectionId, groupId.ToString());
+            await Clients.OthersInGroup(groupId.ToString()).SendAsync("UserJoined", user);
         }
     }
 }

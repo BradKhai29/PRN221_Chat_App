@@ -143,6 +143,18 @@ namespace BusinessLogic.Services.Entities.Implementation
             return result;
         }
 
+        public Task<ChatGroupEntity> FindByIdAsync(
+            Guid chatGroupId,
+            CancellationToken cancellationToken)
+        {
+            return _unitOfWork.ChatGroupRepository.FindBySpecificationsAsync(
+                cancellationToken: cancellationToken,
+                _specificationManager.ChatGroup.Where.ById(chatGroupId),
+                _specificationManager.ChatGroup.Select.ForDetailDisplay(),
+                _specificationManager.ChatGroup.AsNoTracking
+            );
+        }
+
         public Task<IEnumerable<ChatGroupEntity>> GetAllPublicChatGroupsAsync(
             CancellationToken cancellationToken)
         {

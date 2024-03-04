@@ -130,7 +130,7 @@ namespace Presentation.Controllers
                     statusCode: StatusCodes.Status500InternalServerError,
                     value: CommonResponse.Failed(new List<string>(1)
                     {
-                        CommonResponse.DatabaseErrorMessage
+                        "Database error occurred."
                     }));
             }
 

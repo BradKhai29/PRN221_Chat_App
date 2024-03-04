@@ -57,5 +57,14 @@ namespace BusinessLogic.Services.Entities.Base
         /// <returns></returns>
         Task<IEnumerable<ChatGroupEntity>> GetAllPublicChatGroupsAsync(
             CancellationToken cancellationToken);
+        /// <summary>
+        ///     Get all group chat with specified Id.
+        /// </summary>
+        /// <param name="chatGroupId"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<ChatGroupEntity> FindByIdAsync(
+            Guid chatGroupId,
+            CancellationToken cancellationToken);
     }
 }
