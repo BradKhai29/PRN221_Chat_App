@@ -6,6 +6,11 @@ namespace DataAccess.Specifications.Entities.Implementation.ChatGroupMembers.Bas
     public interface IChatGroupMemberOrderBySpecification :
         IGenericSpecification<ChatGroupMemberEntity>
     {
+        // By + Property : General
         IChatGroupMemberOrderBySpecification ByLastAccessedAt(bool isAscending);
+
+        // By + Usecase Name:
+
+        // For + Usecase Name.
     }
 }
