@@ -14,21 +14,21 @@ public class ChatAppDbContext :
     IdentityDbContext<UserEntity, RoleEntity, Guid>
 {
     // public ChatAppDbContext(DbContextOptions<ChatAppDbContext> options)
-    //     : base(options)
+    //        : base(options)
     // {
     // }
 
-    //public ChatAppDbContext() : base()
-    //{
-    //}
+    public ChatAppDbContext() : base()
+    {
+    }
 
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //{
-    //    // Below comment for migrations purpose.
-    //    var connectionString = "Data Source=localhost;Initial Catalog=ChatApp_PRN221;User ID=sa;Password=123123;Trust Server Certificate=True";
-    //    optionsBuilder.UseSqlServer(connectionString);
-    //    optionsBuilder.UseLoggerFactory(GetLoggerFactory());
-    //}
+    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    // {
+
+    //     var connectionString = "Data Source=localhost;Initial Catalog=ChatApp_PRN221;User ID=sa;Password=123123;Trust Server Certificate=True";
+    //     optionsBuilder.UseSqlServer(connectionString);
+    //     optionsBuilder.UseLoggerFactory(GetLoggerFactory());
+    // }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

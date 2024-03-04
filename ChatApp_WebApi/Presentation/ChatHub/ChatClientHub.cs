@@ -4,24 +4,37 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Presentation.ChatHub.Base;
+using Presentation.ChatHub.ChatConnection;
 
-namespace Presentation.ChatHub
+namespace Presentation.ChatHub;
+
+/// <summary>
+/// Represents a hub for managing chat clients.
+/// </summary>
+public class ChatClientHub : Hub<IChatClient>
 {
-    /// <summary>
-    /// Represents a hub for managing chat clients.
-    /// </summary>
-    public class ChatClientHub : Hub<IChatClient>
+    private readonly IHubContext _hubContext;
+    private readonly Chat _connections;
+    public ChatClientHub(IHubContext hubContext)
     {
-        /// <summary>
-        /// Sends a message to the specified group.
-        /// </summary>
-        /// <param name="user">The user sending the message.</param>
-        /// <param name="message">The message to be sent.</param>
-        /// <param name="groupName">The name of the group to send the message to.</param>
-        /// <returns>A task representing the asynchronous operation.</returns>
-        public async Task SendMessage(string user, string message, string groupName)
+        _hubContext = hubContext;
+    }
+    public async Task ReceiveMessage(string user, string message)
+    {
+        await _hubContext.Clients.All.SendAsync("ReceiveMessage", user, message);
+
+    }
+
+    public async Task SendMessage(string user, string message)
+    {
+        await _hubContext.Clients.All.SendAsync("ReceiveMessage", user, message);
+    }
+
+    public async Task SendMessageToGroup(string user, string message, string groupName)
+    {
+        if (_connections.GetValueOfKey())
         {
-            await Clients.Group(groupName).ReceiveMessage(user, message);
+            await _hubContext.Clients.Group(groupName).SendAsync("ReceiveMessage", user, message);
         }
     }
 }

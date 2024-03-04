@@ -16,7 +16,6 @@
                 Value = value
             };
         }
-
         public static CommonResponse Failed(IEnumerable<string> messages)
         {
             return new CommonResponse

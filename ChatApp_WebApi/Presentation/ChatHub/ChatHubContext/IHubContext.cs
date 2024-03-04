@@ -11,7 +11,7 @@ namespace Presentation.ChatHub.ChatHubContext;
 /// Represents the hub context for a specific hub.
 /// </summary>
 /// <typeparam name="THub">The type of the hub.</typeparam>
-public interface IHubContext<THub> where THub : Hub 
+public interface IHubContext<THub, T> where THub : Hub<T> where T : class
 {
     /// <summary>
     /// Gets the manager for groups in the hub context.

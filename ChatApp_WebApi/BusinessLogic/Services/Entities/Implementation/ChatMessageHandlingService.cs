@@ -5,4 +5,5 @@ namespace BusinessLogic.Services.Entities.Implementation;
 public class ChatMessageHandlingService
     : IChatMessageHandlingService
 {
+
 }

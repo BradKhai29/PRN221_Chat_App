@@ -10,11 +10,11 @@ namespace Presentation.Controllers;
 [Authorize]
 [ApiController]
 [Route("api/[controller]")]
-public class MessagesController : ControllerBase
+public class ChatController : ControllerBase
 {
     private readonly Chat _connections;
     private readonly IHubContext<ChatClientHub, IChatClient> _hubContext;
-    public MessagesController(IHubContext<ChatClientHub, IChatClient> hubContext)
+    public ChatController(IHubContext<ChatClientHub, IChatClient> hubContext)
     {
         _hubContext = hubContext;
     }

@@ -13,15 +13,5 @@ namespace Presentation.ChatHub;
 /// </summary>
 public sealed class NotificationHub : Hub<INotificationClient>
 {
-    /// <summary>
-    /// Sends a notification with the specified content to all clients.
-    /// </summary>
-    /// <param name="content">The content of the notification.</param>
-    public async Task SendNotification(string content)
-    {
-        await Clients.All.ReceiveNotification(content);
-    }
-    public async Task JoinRoomNotification(string userName, string roomName){
-        
-    }
+
 }

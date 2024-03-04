@@ -10,6 +10,7 @@ namespace Presentation.ChatHub.Base;
 /// </summary>
 public interface IChatClient
 {
-    Task SendMessage(string message);
+    Task SendMessageToGroup(string user, string message, string groupName);
     Task ReceiveMessage(string user, string message);
+    Task SendMessage(string user, string message);
 }

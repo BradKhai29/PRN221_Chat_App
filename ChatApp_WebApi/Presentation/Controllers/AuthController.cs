@@ -2,6 +2,7 @@
 using BusinessLogic.Models;
 using BusinessLogic.Services.Entities.Base;
 using BusinessLogic.Services.Externals.Base;
+using DataAccess.Core.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.DTOs.Implementation.Auths.InComings;
@@ -38,7 +39,6 @@ namespace Presentation.Controllers
             CancellationToken cancellationToken)
         {
             registerDto.NormalizeAllProperties();
-
             var isExisted = await _userService.IsEmailExistedAsync(
                 email: registerDto.Email,
                 cancellationToken: cancellationToken);
