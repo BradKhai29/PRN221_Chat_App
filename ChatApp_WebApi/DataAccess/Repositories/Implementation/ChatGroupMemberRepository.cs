@@ -12,4 +12,13 @@ public class ChatGroupMemberRepository :
     public ChatGroupMemberRepository(DbContext dbContext) : base(dbContext)
     {
     }
+
+    public Task<int> BulkDeleteByChatGroupIdAsync(
+        Guid chatGroupId,
+        CancellationToken cancellationToken)
+    {
+        return _dbSet
+            .Where(groupMember => groupMember.ChatGroupId.Equals(chatGroupId))
+            .ExecuteDeleteAsync(cancellationToken);
+    }
 }

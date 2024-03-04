@@ -7,6 +7,8 @@ namespace DataAccess.Core.Entities
         IdentityUserToken<Guid>,
         IBaseEntity
     {
+        public DateTime ExpiredAt { get; set; }
+
         #region MetaData
         public static class MetaData
         {

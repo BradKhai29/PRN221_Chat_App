@@ -9,5 +9,7 @@ namespace DataAccess.Specifications.Entities.Implementation.ChatGroups.Base
         IChatGroupWhereSpecification ById(Guid id);
 
         IChatGroupWhereSpecification ByName(string name);
+
+        IChatGroupWhereSpecification IsPublic();
     }
 }

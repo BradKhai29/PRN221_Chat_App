@@ -1,15 +1,15 @@
 ﻿using DataAccess.Core.Entities;
-using DataAccess.Specifications.Entities.Base.Generics;
 using DataAccess.Specifications.Entities.Implementation.ChatGroupMembers.Base;
+using DataAccess.Specifications.Managers.Entities.Base.Generics;
 
 namespace DataAccess.Specifications.Managers.Entities.Base
 {
-    public interface IChatGroupMemberSpecificationManager
+    public interface IChatGroupMemberSpecificationManager :
+        IGenericAsNoTrackingSpecificationManager<ChatGroupMemberEntity>,
+        IGenericAsSplitQuerySpecificationManager<ChatGroupMemberEntity>
     {
         IChatGroupMemberWhereSpecification Where { get; }
 
-        GenericAsNoTrackingSpecification<ChatGroupMemberEntity> AsNoTracking { get; }
-
-        GenericAsSplitQuerySpecification<ChatGroupMemberEntity> AsSplitQuery { get; }
+        IChatGroupMemberSelectSpecification Select { get; }
     }
 }

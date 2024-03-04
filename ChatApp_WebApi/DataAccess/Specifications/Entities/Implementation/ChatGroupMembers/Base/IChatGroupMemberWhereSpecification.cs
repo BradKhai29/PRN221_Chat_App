@@ -14,5 +14,7 @@ namespace DataAccess.Specifications.Entities.Implementation.ChatGroupMembers.Bas
             Guid memberId,
             Guid chatGroupId,
             Guid roleId);
+
+        IChatGroupMemberWhereSpecification ByMemberId(Guid memberId);
     }
 }

@@ -52,4 +52,45 @@ public class UserRepository :
     {
         return _userManager.UpdateAsync(foundEntity);
     }
+
+    public Task<int> BulkUpdateForEmailConfirmationAsync(
+        UserEntity foundUser,
+        CancellationToken cancellationToken)
+    {
+        var emailConfirmStatusId = foundUser.AccountStatusId;
+
+        return _dbSet
+            .Where(user => user.Id.Equals(foundUser.Id))
+            .ExecuteUpdateAsync(user => user
+                .SetProperty(
+                    user => user.AccountStatusId,
+                    user => emailConfirmStatusId),
+                cancellationToken: cancellationToken);
+    }
+
+    public Task<int> BulkUpdatePasswordAsync(
+        Guid userId,
+        string passwordHash,
+        CancellationToken cancellationToken)
+    {
+        var concurrencyStamp = Guid.NewGuid().ToString();
+        var updatedAt = DateTime.UtcNow;
+        var updatedBy = userId;
+
+        return _dbSet
+            .Where(user => userId.Equals(userId))
+            .ExecuteUpdateAsync(user => user
+                .SetProperty(
+                    user => user.PasswordHash,
+                    user => passwordHash)
+                .SetProperty(
+                    user => user.ConcurrencyStamp,
+                    user => concurrencyStamp)
+                .SetProperty(
+                    user => user.UpdatedAt,
+                    user => updatedAt)
+                .SetProperty(
+                    user => user.UpdatedBy,
+                    user => updatedBy));
+    }
 }

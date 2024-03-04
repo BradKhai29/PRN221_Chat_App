@@ -13,6 +13,9 @@ namespace Presentation.ExtensionMethods
         {
             var _jwtOptions = new JwtOptions();
 
+            // More details: https://stackoverflow.com/questions/57998262/why-is-claimtypes-nameidentifier-not-mapping-to-sub
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
             configurationManager
                 .GetRequiredSection(JwtOptions.ParentSectionName)
                 .GetRequiredSection(JwtOptions.SectionName)

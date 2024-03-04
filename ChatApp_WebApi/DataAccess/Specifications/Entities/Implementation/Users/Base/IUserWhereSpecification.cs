@@ -14,10 +14,10 @@ namespace DataAccess.Specifications.Entities.Implementation.Users.Base
 
         IUserWhereSpecification ForLogin(string username, string passwordHash);
 
-        IUserWhereSpecification IsPendingById(Guid id);
+        IUserWhereSpecification IsPendingStatus(Guid userId);
 
-        IUserWhereSpecification IsRegisteredById(Guid id);
+        IUserWhereSpecification IsEmailConfirmedStatus(Guid userId);
 
-        IUserWhereSpecification IsBannedById(Guid id);
+        IUserWhereSpecification IsBannedStatus(Guid userId);
     }
 }

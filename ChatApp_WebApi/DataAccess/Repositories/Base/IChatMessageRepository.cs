@@ -6,11 +6,13 @@ namespace DataAccess.Repositories.Base;
 public interface IChatMessageRepository 
     : IGenericRepository<ChatMessageEntity>
 {
-    public Task<int> BulkUpdateForContent(
+    Task<int> BulkUpdateForContent(
         ChatMessageEntity chatMessage,
         CancellationToken cancellationToken);
 
-    public Task<int> BulkUpdateForImages(
+    Task<int> BulkUpdateForImages(
         ChatMessageEntity chatMessage,
         CancellationToken cancellationToken);
+
+    Task<int> BulkDeleteById(Guid id, CancellationToken cancellationToken);
 }

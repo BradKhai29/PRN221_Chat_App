@@ -20,14 +20,26 @@ namespace DataAccess.Core.Configurations
                 .Property(token => token.UserId)
                 .IsRequired();
 
+            // Token value configuration.
             builder
                 .Property(token => token.Value)
                 .HasColumnType(SqlDataTypes.SqlServer.NVARCHAR_32)
                 .IsRequired();
 
             builder
+                .HasIndex(token => token.Value)
+                .IsClustered(clustered: false)
+                .IsUnique();
+
+            // AccessTokenId configuration.
+            builder
                 .Property(token => token.AccessTokenId)
                 .IsRequired();
+
+            builder
+                .HasIndex(token => token.AccessTokenId)
+                .IsClustered(clustered: false)
+                .IsUnique();
 
             builder
                 .Property(token => token.CreatedAt)

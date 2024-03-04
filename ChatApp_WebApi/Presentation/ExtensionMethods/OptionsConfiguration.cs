@@ -13,6 +13,8 @@ namespace Presentation.ExtensionMethods
         {
             services.ConfigureOptions<JwtOptionsSetup>();
             services.ConfigureOptions<PasswordHashOptionsSetup>();
+            services.ConfigureOptions<ResetPasswordOptionsSetup>();
+            services.ConfigureOptions<MailOptionsSetup>();
 
             return services;
         }

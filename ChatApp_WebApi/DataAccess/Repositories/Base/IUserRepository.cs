@@ -7,8 +7,17 @@ namespace DataAccess.Repositories.Base
     public interface IUserRepository
         : IBaseIdentityRepository<UserEntity, Guid>
     {
+        UserManager<UserEntity> Manager { get; }
+
         Task<UserEntity> FindByUsernameAsync(string username);
 
-        UserManager<UserEntity> Manager { get; }
+        Task<int> BulkUpdateForEmailConfirmationAsync(
+            UserEntity foundUser,
+            CancellationToken cancellationToken);
+
+        Task<int> BulkUpdatePasswordAsync(
+            Guid userId,
+            string passwordHash,
+            CancellationToken cancellationToken);
     }
 }

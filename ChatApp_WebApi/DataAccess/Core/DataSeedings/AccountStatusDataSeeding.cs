@@ -25,8 +25,8 @@ namespace DataAccess.Core.DataSeedings
                 },
                 new()
                 {
-                    Id = SeedingValues.AccountStatuses.Registered.Id,
-                    Name = SeedingValues.AccountStatuses.Registered.Name
+                    Id = SeedingValues.AccountStatuses.EmailConfirmed.Id,
+                    Name = SeedingValues.AccountStatuses.EmailConfirmed.Name
                 },
                 new()
                 {

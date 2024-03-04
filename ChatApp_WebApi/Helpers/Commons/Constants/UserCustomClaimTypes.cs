@@ -1,4 +1,4 @@
-﻿namespace BusinessLogic.Commons.Constants;
+﻿namespace Helpers.Commons.Constants;
 
 /// <summary>
 ///     This class contains custom claim-types for user

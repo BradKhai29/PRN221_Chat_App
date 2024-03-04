@@ -24,5 +24,7 @@ namespace DataAccess.UnitOfWorks.Base
         IChatGroupMemberRepository ChatGroupMemberRepository { get; }
 
         IRefreshTokenRepository RefreshTokenRepository { get; }
+
+        IUserTokenRepository UserTokenRepository { get; }
     }
 }
