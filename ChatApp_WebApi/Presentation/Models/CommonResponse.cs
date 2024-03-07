@@ -19,7 +19,6 @@
                 Body = body
             };
         }
-
         public static CommonResponse Failed(IEnumerable<string> messages)
         {
             return new CommonResponse

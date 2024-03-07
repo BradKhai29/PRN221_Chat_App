@@ -13,7 +13,6 @@ public class ChatMessageRepository :
     public ChatMessageRepository(DbContext dbContext) : base(dbContext)
     {
     }
-
     public Task<int> BulkDeleteById(Guid id, CancellationToken cancellationToken)
     {
         return _dbSet

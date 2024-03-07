@@ -11,6 +11,6 @@ namespace Presentation.ChatHub.Base;
 public interface INotificationClient
 {
     Task ReceiveNotification(string content);
-    Task JoinRoomNotification(string roomName);
+    Task JoinGroupNotification(string roomName);
 
 }

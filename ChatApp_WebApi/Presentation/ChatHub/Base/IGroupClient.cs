@@ -8,11 +8,10 @@ using Presentation.DTOs.Implementation.ChatMessages.InComings;
 
 namespace Presentation.ChatHub.Base;
 
-/// <summary>
-/// Represents a chat client interface.
-/// </summary>
-public interface IChatClient
+public interface IGroupClient
 {
-    Task ReceiveMessage(string user, string message);
-    Task SendAsync(string message, CreateChatMessageDto msg);
+
+    Task SendAsync(string groupName, CreateChatMessageDto message);
+    Task SendAsync(string groupName, string message);
+
 }

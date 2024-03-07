@@ -36,6 +36,16 @@ namespace BusinessLogic.Services.Entities.Implementation
                 _specificationManager.User.AsNoTracking);
         }
 
+        public Task<UserEntity> FindUserByNameAsync(string name, CancellationToken cancellationToken)
+        {
+            return _unitOfWork.UserRepository.FindBySpecificationsAsync(
+                cancellationToken: cancellationToken,
+                _specificationManager.User.Where.ByUsername(name),
+                _specificationManager.User.Select.ForEmailConfirmation(),
+                _specificationManager.User.AsNoTracking
+            );
+        }
+
         public Task<bool> IsEmailConfirmedByUserIdAsync(Guid userId, CancellationToken cancellationToken)
         {
             return _unitOfWork.UserRepository.IsFoundBySpecificationsAsync(
