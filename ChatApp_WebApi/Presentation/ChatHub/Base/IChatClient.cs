@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataAccess.Core.Entities;
-using Presentation.Models.ViewModel;
+using Presentation.DTOs.Implementation.ChatMessages.InComings;
+
 
 namespace Presentation.ChatHub.Base;
 
@@ -13,5 +14,5 @@ namespace Presentation.ChatHub.Base;
 public interface IChatClient
 {
     Task ReceiveMessage(string user, string message);
-    Task SendAsync(string message, ChatMessageEntity msg);
+    Task SendAsync(string message, CreateChatMessageDto msg);
 }

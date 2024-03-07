@@ -1,12 +1,18 @@
 
 using System.Text.RegularExpressions;
 using BusinessLogic.Services.Entities.Base;
+using DataAccess.Core.Entities;
 using Microsoft.AspNetCore.SignalR;
 using Presentation.ChatHub.Base;
-using Presentation.Models.ViewModel;
+using Presentation.ChatHub.ChatConnection;
+using Presentation.DTOs.Implementation.ChatMessages.InComings;
+
 
 namespace Presentation.ChatHub;
 
+/// <summary>
+/// Represents a hub for managing group chat functionality.
+/// </summary>
 public sealed class GroupHub : Hub<IGroupClient>
 {
     private readonly IUserHandlingService _userHandlingService;
@@ -23,36 +29,40 @@ public sealed class GroupHub : Hub<IGroupClient>
         {
             var user = _userHandlingService.FindUserByNameAsync(Context.User.Identity.Name, default);
             var group = _groupHandlingServices.FindByIdAsync(groupId, default);
+            var messageDto = new CreateChatMessageDto
+            {
+                Content = message,
+                ChatGroupId = groupId,
+                ReplyMessageId = Guid.Empty,
+                CreatedAt = DateTime.UtcNow
+            };
             if (!string.IsNullOrEmpty(message.Trim()))
             {
-                var msg = new MessageGroupViewModel
+                var msg = new ChatMessageEntity
                 {
-                    Content = Regex.Replace(message, @"\t|\n|\r", ""),
-                    FromUser = user.Result.NormalizedUserName,
-                    ToGroup = group.Result.Name,
-                    SentTime = DateTime.Now
+                    Content = Regex.Replace(message, @"(?i)<(img|a|/a|/img).*?>", ""),
+                    Images = null,
+                    Sender = user.Result,
+                    ReplyMessage = null,
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow
                 };
-                var messageToViewModel = new MessageViewModel
-                {
-                    Content = msg.Content,
-                    From = msg.FromUser,
-                    To = msg.ToGroup,
-                    SentTime = msg.SentTime
-                };
-                await Clients.Group(group.Result.Name.ToString()).SendAsync("newMessage", messageToViewModel);
+
+                await Clients.Group(group.Result.Name.ToString()).SendAsync("newMessage", messageDto);
             }
         }
         catch (Exception e)
         {
             var errorMessage = "Message cannot be sent" + e.Message;
-            var errorViewModel = new MessageViewModel
+            var errorMsg = new CreateChatMessageDto
             {
                 Content = errorMessage,
-                From = "System",
-                To = "Error",
-                SentTime = DateTime.Now
+                ChatGroupId = Guid.Empty,
+                CreatedAt = DateTime.UtcNow,
+                ReplyMessageId = Guid.Empty,
+                Images = null
             };
-            await Clients.Caller.SendAsync("OnError", errorViewModel);
+            await Clients.Caller.SendAsync("OnError", errorMsg);
         }
     }
     public async Task JoinGroup(Guid groupId)
@@ -60,8 +70,10 @@ public sealed class GroupHub : Hub<IGroupClient>
         try
         {
             var user = await _userHandlingService.FindUserByNameAsync(Context.User.Identity.Name, default);
+
             await Groups.AddToGroupAsync(Context.ConnectionId, groupId.ToString());
-            await Clients.OthersInGroup(groupId.ToString()).SendAsync("UserJoined", user.NormalizedUserName);
+
+            await Clients.OthersInGroup(groupId.ToString()).SendAsync("User Joined", user.NormalizedUserName);
 
         }
         catch (Exception e)
@@ -72,6 +84,7 @@ public sealed class GroupHub : Hub<IGroupClient>
     public async Task Leave(Guid groupId)
     {
         var groupName = _groupHandlingServices.FindByIdAsync(groupId, default).Result.Name;
+
         await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName.ToString());
     }
 }
