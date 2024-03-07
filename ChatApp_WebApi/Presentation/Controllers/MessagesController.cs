@@ -15,6 +15,7 @@ namespace Presentation.Controllers;
 public class ChatController : ControllerBase
 {
     private readonly Chat _connections;
+
     private readonly IHubContext<ChatClientHub, IChatClient> _hubContext;
     private readonly IChatGroupHandlingService _groupService;
     public ChatController(IHubContext<ChatClientHub, IChatClient> hubContext, IChatGroupHandlingService groupService)
@@ -40,4 +41,5 @@ public class ChatController : ControllerBase
         }
         return Ok();
     }
+
 }

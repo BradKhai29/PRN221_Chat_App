@@ -25,7 +25,6 @@ namespace Presentation.Controllers
             _chatGroupService = chatGroupHandlingService;
         }
 
-
         [HttpGet("all")]
         public async Task<IActionResult> GetAllJoinedChatGroups(CancellationToken cancellationToken)
         {
